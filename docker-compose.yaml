@@ -1,0 +1,43 @@
+services:
+  api:
+    restart: unless-stopped
+    env_file: "./docker/.env"
+    build:
+      context: ./api
+      dockerfile: ../docker/api.Dockerfile
+    develop:
+      watch:
+        - path: api/composer.json
+          action: rebuild
+        - path: api/composer.lock
+          action: rebuild
+        - path: api/
+          target: /app
+          ignore:
+            - var/
+            - vendor/
+          action: sync
+
+  front:
+    restart: unless-stopped
+    env_file: "./docker/.env"
+    build:
+      context: ./front
+      dockerfile: ../docker/front.Dockerfile
+    ports:
+      - 5173:5173
+    develop:
+      watch:
+        - path: front/package.json
+          action: rebuild
+        - path: front/yarn.lock
+          action: rebuild
+        - path: front/
+          ignore:
+            - node_modules/
+          target: /app
+          action: sync
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env_file: "./docker/.env"
