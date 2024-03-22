@@ -31,10 +31,14 @@ function getRoomUserList(room) {
 }
 
 function roomExist(givenRoomName) {
+    let response = false
     rooms.forEach(room => {
-        if (room.name === givenRoomName) return true
+        console.log(room.name === givenRoomName)
+        if (room.name === givenRoomName){
+            response = true
+        }
     })
-    return false
+    return response
  }
 
 function getRoomIndex(givenRoomName) {
@@ -67,15 +71,11 @@ io.on('connection', (socket) => {
             console.log(error)
         }
         currentUser.room = room
-        if (!roomExist(room)){
-            rooms.push({
-                name: room,
-                roomInfo: {
-                    recipe: [], meetingLink: "",
-                }
-            })
+        let roomBool = roomExist(room)
+        if (!roomBool){
+            rooms.push({name: room, roomInfo: {recipe: [], meetingLink: ""}})
         }
-        users.set(socket.id, currentUser)
+         users.set(socket.id, currentUser)
         roomUserList = getRoomUserList(room)
         io.to(room).emit('user-joined', {joiningUser: currentUser.username})
         socket.join(room);
