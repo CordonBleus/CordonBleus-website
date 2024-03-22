@@ -12,7 +12,12 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/old-index.html');
 })
 
-const io = new Server(httpServer, {});
+const io = new Server(httpServer, {
+    cors: {
+        origin: "*",
+        credentials: true
+    }
+});
 
 const users = new Map;
 
