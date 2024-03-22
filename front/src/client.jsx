@@ -13,7 +13,7 @@ function Client() {
     const [roomsData, setRoomsData] = useState([]);
 
     useEffect(() => {
-        socketRef.current = io.connect('http://localhost:3000'); // Replace with your server URL
+        socketRef.current = io.connect(import.meta.env.SOCKET_SERVER_URI); // Replace with your server URL
         console.log('socketRef.current', socketRef.current)
 
         socketRef.current.on('rooms', ({rooms}) => {
@@ -50,15 +50,15 @@ function Client() {
     };
 
     return (
-        <div>
-            {!isLoggedIn ? (
-                <LoginForm onLogin={handleLogin}/>
-            ) : room ? (
-                <Room roomName={room} socket={socketRef.current}/>
-            ) : (
-                <RoomList rooms={roomsData} onRoomSelect={handleRoomSelection}/>
-            )}
-        </div>
+      <div>
+          {!isLoggedIn ? (
+            <LoginForm onLogin={handleLogin}/>
+          ) : room ? (
+            <Room roomName={room} socket={socketRef.current}/>
+          ) : (
+            <RoomList rooms={roomsData} onRoomSelect={handleRoomSelection}/>
+          )}
+      </div>
     );
 }
 
