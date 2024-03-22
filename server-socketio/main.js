@@ -2,9 +2,12 @@ const express = require('express');
 const app = express();
 const { createServer } = require("http");
 const { Server } = require("socket.io");
+const cors = require('cors');
 const httpServer = createServer(app);
 const hostName = "127.0.0.1";
 const port = 3000;
+
+app.use(cors())
 
 // Endpoints
 
@@ -12,7 +15,12 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/old-index.html');
 })
 
-const io = new Server(httpServer, {});
+const io = new Server(httpServer, {
+    cors: {
+        origin: "*",
+        credentials: true
+    }
+});
 
 const users = new Map;
 
@@ -32,6 +40,9 @@ function getRoomUserList(room) {
 
 function roomExist(givenRoomName) {
     rooms.forEach(room => {
+        console.log("$$$$$$$$$$$$$$$$$$")
+        console.log(typeof room.name, typeof givenRoomName)
+        console.log(room.name, givenRoomName)
         if (room.name === givenRoomName) return true
     })
     return false
@@ -58,7 +69,8 @@ io.on('connection', (socket) => {
         socket.emit('rooms', {rooms});
     })
 
-    socket.on('join-room', ({ room }) => {
+    socket.on('join-room', ({ room, meetingLink }) => {
+        console.log("Called")
         const currentUser = users.get(socket.id)
         let roomUserList = getRoomUserList(room)
         try {
@@ -67,14 +79,17 @@ io.on('connection', (socket) => {
             console.log(error)
         }
         currentUser.room = room
+        console.log(roomExist(room))
         if (!roomExist(room)){
             rooms.push({
                 name: room,
                 roomInfo: {
-                    recipe: [], meetingLink: "",
+                    recipe: [], meetingLink: meetingLink,
                 }
             })
         }
+        console.log("=====================================")
+        console.log('rooms', rooms)
         users.set(socket.id, currentUser)
         roomUserList = getRoomUserList(room)
         io.to(room).emit('user-joined', {joiningUser: currentUser.username})

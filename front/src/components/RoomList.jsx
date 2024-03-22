@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 // eslint-disable-next-line react/prop-types
 function RoomList({ rooms, onRoomSelect }) {
     return (
@@ -8,13 +9,16 @@ function RoomList({ rooms, onRoomSelect }) {
             <ul>
                 {/* eslint-disable-next-line react/prop-types */}
                 {rooms.map((room) => (
-                    <li key={room.id || room.name}>  {/* Use unique identifier if available */}
+                    <li key={room.name}>  {/* Use unique identifier if available */}
                         <button onClick={() => onRoomSelect(room.id || room.name)}>
                             {room.name || room}  {/* Display room name if available */}
                         </button>
                     </li>
                 ))}
             </ul>
+            <button onClick={() => onRoomSelect("Tiramisu" + Math.random() * 100)}>
+                Create Room
+            </button>
         </div>
     );
 }
