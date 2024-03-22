@@ -3,7 +3,7 @@ const app = express();
 const { createServer } = require("http");
 const { Server } = require("socket.io");
 const httpServer = createServer(app);
-const hostName = "127.0.0.1";
+const hostName = import.meta.env.HOST_NAME || 'https://cordons-bleus.netlify.app/';
 const port = 3000;
 
 // Endpoints
@@ -156,5 +156,5 @@ io.on('connection', (socket) => {
 
 
 httpServer.listen(port, hostName, () => {
-    console.log(`Server link : http://${hostName}:${port}`)
+    console.log(`Server link : ${hostName}:${port}`)
 });
