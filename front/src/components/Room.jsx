@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
-function Room({ roomName, socket }) {
+function Room({ roomName }) {
     const messageRef = useRef(null);
 
     return (

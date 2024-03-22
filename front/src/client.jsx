@@ -4,7 +4,7 @@ import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import LoginForm from './components/LoginForm.jsx';
 import RoomList from './components/RoomList.jsx';
 import Room from './components/Room.jsx';
-// import {createRoom} from "./services/googleMeet/index.js";
+import {createRoom} from "./services/googleMeet";
 
 function Client() {
     const socketRef = useRef(null);
@@ -34,23 +34,10 @@ function Client() {
         setRoom(roomName);
     };
 
-    const leaveRoom = () => {
-        socketRef.current.emit('leave-room');
-        setRoom(null); // Clear current room
-    };
-
-    // const getRooms = () => {
-        // socketRef.current.emit('get-rooms', ({rooms}) => {
-        //     setRoomsData(rooms); // Update state with received rooms
-        // });
+    // const leaveRoom = () => {
+    //     socketRef.current.emit('leave-room');
+    //     setRoom(null); // Clear current room
     // };
-
-
-    // if (socketRef.current) {
-    //     socketRef.current.on('rooms', ({rooms}) => {
-    //         setRoomsData(rooms); // Update state with received rooms
-    //     });
-    // }
 
     const handleLogin = (username, email, password) => {
         socketRef.current.emit('login', {username, email, password});
