@@ -1,6 +1,6 @@
 // Client.jsx
-import React, { useEffect, useRef, useState } from 'react';
-import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+import {useEffect, useRef, useState} from 'react';
+import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import LoginForm from './components/LoginForm.jsx';
 import RoomList from './components/RoomList.jsx';
 import Room from './components/Room.jsx';
@@ -12,64 +12,52 @@ function Client() {
     const [roomsData, setRoomsData] = useState([]);
 
     useEffect(() => {
-        socketRef.current = io('http://localhost:3000'); // Replace with your server URL
+        socketRef.current = io.connect(import.meta.env.SOCKET_SERVER_URI); // Replace with your server URL
+        console.log('socketRef.current', socketRef.current)
+
+        socketRef.current.on('rooms', ({rooms}) => {
+            console.log('rooms', rooms)
+            setRoomsData(rooms); // Update state with received rooms
+        })
 
         return () => {
             socketRef.current.disconnect();
         };
     }, []);
 
-    const joinRoom = (roomName) => {
-        if (socketRef.current) {
-            socketRef.current.emit('join-room', roomName);
-            setRoom(roomName); // Track current room
-        }
+    const joinRoom = async (roomName) => {
+        // const {meetId, meetingLink} = await createRoom()
+
+        console.log('joinRoom', roomName)
+        socketRef.current.emit('join-room', {room: roomName, meetingLink: 'https://meet.google.com/new'});
+        setRoom(roomName);
     };
 
-    const leaveRoom = () => {
-        if (socketRef.current) {
-            socketRef.current.emit('leave-room');
-            setRoom(null); // Clear current room
-        }
-    };
-
-    // const getRooms = () => {
-    //     if (socketRef.current) {
-    //         socketRef.current.emit('get-rooms', ({rooms}) => {
-    //             setRoomsData(rooms); // Update state with received rooms
-    //         });
-    //     }
+    // const leaveRoom = () => {
+    //     socketRef.current.emit('leave-room');
+    //     setRoom(null); // Clear current room
     // };
-    socketRef.current.on('rooms', ({rooms}) => {
-        setRoomsData(rooms); // Update state with received rooms
-    });
+
     const handleLogin = (username, email, password) => {
-        if (socketRef.current) {
-            socketRef.current.emit('login', { username, email, password }, (loginSuccess) => {
-                if (loginSuccess) {
-                    setIsLoggedIn(true);
-                    //getRooms(); // Fetch room list after successful login
-                } else {
-                    // Handle login failure
-                }
-            });
-        }
+        socketRef.current.emit('login', {username, email, password});
+        setIsLoggedIn(true);
     };
 
     const handleRoomSelection = (selectedRoom) => {
-        joinRoom(selectedRoom);
+        console.log("send socket")
+        joinRoom(selectedRoom).then(r => console.log(r));
     };
 
     return (
-        <div>
-            {!isLoggedIn ? (
-                <LoginForm onLogin={handleLogin} />
-            ) : room ? (
-                <Room roomName={room} socket={socketRef.current} />
-            ) : (
-                <RoomList rooms={roomsData} onRoomSelect={handleRoomSelection} />
-            )}
-        </div>
+      <div>
+          {!isLoggedIn ? (
+            <LoginForm onLogin={handleLogin}/>
+          ) : room ? (
+            <Room roomName={room} socket={socketRef.current}/>
+          ) : (
+            <RoomList rooms={roomsData} onRoomSelect={handleRoomSelection}/>
+          )}
+      </div>
     );
 }
 
