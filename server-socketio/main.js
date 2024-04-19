@@ -12,8 +12,14 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/old-index.html');
 })
 
-const io = new Server(httpServer, {});
-
+const io = new Server(httpServer, {
+    cors: {
+        origin: "http://127.0.0.1:3000/",
+        // or with an array of origins
+        // origin: ["https://my-frontend.com/", "https://my-other-frontend.com/", "http://localhost:3000/"],
+        credentials: true
+    }
+});
 const users = new Map;
 
 const rooms = [];
@@ -33,7 +39,6 @@ function getRoomUserList(room) {
 function roomExist(givenRoomName) {
     let response = false
     rooms.forEach(room => {
-        console.log(room.name === givenRoomName)
         if (room.name === givenRoomName){
             response = true
         }
@@ -59,6 +64,7 @@ io.on('connection', (socket) => {
             room: socket.id,
         })
         console.log('my username', users.get(socket.id))
+        console.log('rooms', {rooms})
         socket.emit('rooms', {rooms});
     })
 
@@ -75,7 +81,7 @@ io.on('connection', (socket) => {
         if (!roomBool){
             rooms.push({name: room, roomInfo: {recipe: [], meetingLink: ""}})
         }
-         users.set(socket.id, currentUser)
+        users.set(socket.id, currentUser)
         roomUserList = getRoomUserList(room)
         io.to(room).emit('user-joined', {joiningUser: currentUser.username})
         socket.join(room);

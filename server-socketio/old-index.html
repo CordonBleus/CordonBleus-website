@@ -109,6 +109,7 @@
                 margin-top: 80px;
             }
             #main-content-room{
+                display: none;
                 position: absolute;
                 flex-direction: row;
                 height: 100vh;
@@ -245,13 +246,13 @@
 
             const messageInput = document.getElementById('message-input')
 
-            let map;
-            let userMaker;
-            let userLatLng;
-            let destinationLatLng;
-            let otherUsersMarker = [];
-            let otherUsersLatLng = [];
-            let path;
+            // let map;
+            // let userMaker;
+            // let userLatLng;
+            // let destinationLatLng;
+            // let otherUsersMarker = [];
+            // let otherUsersLatLng = [];
+            // let path;
 
             let destinationMarkerDoesExist = false;
 
@@ -333,96 +334,92 @@
                 }
             }
 
-            function updateUsersPos() {
-                otherUsersMarker.forEach(userMarker => {
-                    userMarker.remove()
-                })
-                otherUsersLatLng.forEach(userLatLng => {
-                    let otherUserMarker = L.marker(userLatLng.latLng).addTo(map)
-                    otherUsersMarker.push(otherUserMarker)
-                    if (path) {
-                        const p = document.createElement('p')
-                        p.style.textAlign = 'center'
-                        p.innerHTML = userLatLng.username
-                        path.bindPopup(p).openPopup();
-                    }
-                })
-            }
+            // function updateUsersPos() {
+            //     otherUsersMarker.forEach(userMarker => {
+            //         userMarker.remove()
+            //     })
+            //     otherUsersLatLng.forEach(userLatLng => {
+            //         let otherUserMarker = L.marker(userLatLng.latLng).addTo(map)
+            //         otherUsersMarker.push(otherUserMarker)
+            //         if (path) {
+            //             const p = document.createElement('p')
+            //             p.style.textAlign = 'center'
+            //             p.innerHTML = userLatLng.username
+            //             path.bindPopup(p).openPopup();
+            //         }
+            //     })
+            // }
 
-            navigator.geolocation.getCurrentPosition(async position => {
-                map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 16);
-                const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
-                    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                }).addTo(map);
-                userMaker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map)
-                userLatLng = {lat: position.coords.latitude, lng: position.coords.longitude}
-                mainContentRoom.style.display = 'none'
-
-                map.addEventListener('click', clickEvent => {
-                    if (!destinationMarkerDoesExist) {
-                        let marker = L.marker([clickEvent.latlng.lat, clickEvent.latlng.lng], {draggable: true}).addTo(map)
-                        destinationLatLng = {lat: clickEvent.latlng.lat, lng: clickEvent.latlng.lng}
-                        path = L.polyline([[userLatLng.lat, userLatLng.lng], [clickEvent.latlng.lat, clickEvent.latlng.lng]], {color: 'red'}).addTo(map)
-                        const p = document.createElement('p')
-                        p.style.textAlign = 'center'
-                        p.innerHTML = calculateDistanceBetweenMarkers([userLatLng.lat, clickEvent.latlng.lat], [userLatLng.lng, clickEvent.latlng.lng]).toString()
-                        path.bindPopup(p).openPopup();
-                        socket.emit('destination-marker', [clickEvent.latlng.lat, clickEvent.latlng.lng])
-                        marker.addEventListener('click', () => {
-                            path.remove()
-                            marker.remove()
-                            destinationMarkerDoesExist = false
-                        })
-                        marker.addEventListener('drag', dragEvent => {
-                            destinationLatLng = {lat: dragEvent.latlng.lat, lng: dragEvent.latlng.lng}
-                            const newPathLatLngStart = new L.LatLng(userLatLng.lat, userLatLng.lng)
-                            const newPathLatLngEnd = new L.LatLng(destinationLatLng.lat, destinationLatLng.lng)
-
-                            path.setLatLngs([newPathLatLngStart, newPathLatLngEnd])
-                            const p = document.createElement('p')
-                            p.style.textAlign = 'center'
-                            p.innerHTML = calculateDistanceBetweenMarkers([userLatLng.lat, dragEvent.latlng.lat], [userLatLng.lng, dragEvent.latlng.lng]).toString()
-                            path.bindPopup(p).openPopup();
-                            socket.emit('destination-marker', [clickEvent.latlng.lat, clickEvent.latlng.lng])
-
-                        })
-                    }
-                    destinationMarkerDoesExist = true
-
-                })
-
-                navigator.geolocation.watchPosition(async position => {
-                    const newUserLatLng = new L.LatLng(position.coords.latitude, position.coords.longitude)
-                    userLatLng = {lat: position.coords.latitude, lng: position.coords.longitude}
-                    if (path) {
-                        const newPathLatLngStart = new L.LatLng(position.coords.latitude, position.coords.longitude)
-                        const newPathLatLngEnd = new L.LatLng(destinationLatLng.lat, destinationLatLng.lng)
-                        path.setLatLngs([newPathLatLngStart, newPathLatLngEnd])
-                    }
-                    userMaker.setLatLng(newUserLatLng)
-                    if (destinationMarkerDoesExist) {
-                        const p = document.createElement('p')
-                        p.style.textAlign = 'center'
-                        p.innerHTML = calculateDistanceBetweenMarkers([userLatLng.lat, destinationLatLng.lat], [userLatLng.lng, destinationLatLng.lng]).toString()
-                        path.bindPopup(p).openPopup();
-                    }
-                    socket.emit('update-position', newUserLatLng)
-                })
-            })
+            // navigator.geolocation.getCurrentPosition(async position => {
+            //     map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 16);
+            //     const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            //         maxZoom: 19,
+            //         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            //     }).addTo(map);
+            //     userMaker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map)
+            //     userLatLng = {lat: position.coords.latitude, lng: position.coords.longitude}
+            //     mainContentRoom.style.display = 'none'
+            //
+            //     map.addEventListener('click', clickEvent => {
+            //         if (!destinationMarkerDoesExist) {
+            //             let marker = L.marker([clickEvent.latlng.lat, clickEvent.latlng.lng], {draggable: true}).addTo(map)
+            //             destinationLatLng = {lat: clickEvent.latlng.lat, lng: clickEvent.latlng.lng}
+            //             path = L.polyline([[userLatLng.lat, userLatLng.lng], [clickEvent.latlng.lat, clickEvent.latlng.lng]], {color: 'red'}).addTo(map)
+            //             const p = document.createElement('p')
+            //             p.style.textAlign = 'center'
+            //             p.innerHTML = calculateDistanceBetweenMarkers([userLatLng.lat, clickEvent.latlng.lat], [userLatLng.lng, clickEvent.latlng.lng]).toString()
+            //             path.bindPopup(p).openPopup();
+            //             socket.emit('destination-marker', [clickEvent.latlng.lat, clickEvent.latlng.lng])
+            //             marker.addEventListener('click', () => {
+            //                 path.remove()
+            //                 marker.remove()
+            //                 destinationMarkerDoesExist = false
+            //             })
+            //             marker.addEventListener('drag', dragEvent => {
+            //                 destinationLatLng = {lat: dragEvent.latlng.lat, lng: dragEvent.latlng.lng}
+            //                 const newPathLatLngStart = new L.LatLng(userLatLng.lat, userLatLng.lng)
+            //                 const newPathLatLngEnd = new L.LatLng(destinationLatLng.lat, destinationLatLng.lng)
+            //
+            //                 path.setLatLngs([newPathLatLngStart, newPathLatLngEnd])
+            //                 const p = document.createElement('p')
+            //                 p.style.textAlign = 'center'
+            //                 p.innerHTML = calculateDistanceBetweenMarkers([userLatLng.lat, dragEvent.latlng.lat], [userLatLng.lng, dragEvent.latlng.lng]).toString()
+            //                 path.bindPopup(p).openPopup();
+            //                 socket.emit('destination-marker', [clickEvent.latlng.lat, clickEvent.latlng.lng])
+            //
+            //             })
+            //         }
+            //         destinationMarkerDoesExist = true
+            //
+            //     })
+            //
+            //     navigator.geolocation.watchPosition(async position => {
+            //         const newUserLatLng = new L.LatLng(position.coords.latitude, position.coords.longitude)
+            //         userLatLng = {lat: position.coords.latitude, lng: position.coords.longitude}
+            //         if (path) {
+            //             const newPathLatLngStart = new L.LatLng(position.coords.latitude, position.coords.longitude)
+            //             const newPathLatLngEnd = new L.LatLng(destinationLatLng.lat, destinationLatLng.lng)
+            //             path.setLatLngs([newPathLatLngStart, newPathLatLngEnd])
+            //         }
+            //         userMaker.setLatLng(newUserLatLng)
+            //         if (destinationMarkerDoesExist) {
+            //             const p = document.createElement('p')
+            //             p.style.textAlign = 'center'
+            //             p.innerHTML = calculateDistanceBetweenMarkers([userLatLng.lat, destinationLatLng.lat], [userLatLng.lng, destinationLatLng.lng]).toString()
+            //             path.bindPopup(p).openPopup();
+            //         }
+            //         socket.emit('update-position', newUserLatLng)
+            //     })
+            // })
 
             createRoomForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const createRoomInput = document.getElementById('create-room-input');
-                if (createRoomInput.value) {
+                if (createRoomInput.value !== '') {
                     socket.emit('join-room', {
                         room: createRoomInput.value
                     })
                     createRoomInput.value = '';
-                    mainContentHost.style.display = 'none'
-                    mainContentRoom.style.display = 'flex'
-                    document.getElementById('header').style.display = 'none'
-                    userMaker.bindPopup("<p style='text-align: center'>You</p>").openPopup();
                 }
             });
 
@@ -445,7 +442,7 @@
             loginForm.addEventListener('submit', (e) => {
                 e.preventDefault()
                 const loginInput = document.getElementById('login-input')
-                socket.emit('login', loginInput.value)
+                socket.emit('login', {username: loginInput.value})
                 loginContainer.style.display = "none"
             })
 
