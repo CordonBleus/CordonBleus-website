@@ -1,29 +1,31 @@
-const {OAuth2Client} = require('google-auth-library')
-const http = require('http')
-const url = require('url')
+import {OAuth2Client} from 'google-auth-library'
+// import http from 'http'
+// import url from 'url'
 
 // Download your OAuth2 configuration from the Google
-const keys = require('../../data/credentials.json')
+import keys from '../../data/credentials.json'
 
 /**
  * Start by acquiring a pre-authenticated oAuth2 client.
  */
 export async function googleLogin() {
-  const oAuth2Client = await getAuthenticatedClient()
+  const oAuth2ClientURI = await getAuthenticatedClient()
+
+  return oAuth2ClientURI
   // Make a simple request to the People API using our pre-authenticated client. The `request()` method
   // takes an GaxiosOptions object.  Visit https://github.com/JustinBeckwith/gaxios.
-  const url = 'https://people.googleapis.com/v1/people/me?personFields=names'
-  const res = await oAuth2Client.request({url})
-  console.log(res.data)
+  // const url = 'https://people.googleapis.com/v1/people/me?personFields=names'
+  // const res = await oAuth2Client.request({url})
+  // console.log(res.data)
 
   // After acquiring an access_token, you may want to check on the audience, expiration,
   // or original scopes requested.  You can do that with the `getTokenInfo` method.
-  const tokenInfo = await oAuth2Client.getTokenInfo(
-    oAuth2Client.credentials.access_token
-  );
+  // const tokenInfo = await oAuth2Client.getTokenInfo(
+  //   oAuth2Client.credentials.access_token
+  // );
 
-  console.log(tokenInfo)
-  return tokenInfo
+  // console.log(tokenInfo)
+  // return tokenInfo
 }
 
 /**
@@ -31,7 +33,7 @@ export async function googleLogin() {
  * workflow.  Return the full client to the callback.
  */
 function getAuthenticatedClient() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     // create an oAuth client to authorize the API call.  Secrets are kept in a `keys.json` file,
     // which should be downloaded from the Google Developers Console.
     const oAuth2Client = new OAuth2Client(
@@ -47,6 +49,7 @@ function getAuthenticatedClient() {
     });
 
     console.log('Authorize this app by visiting this url:', authorizeUrl)
+    resolve(authorizeUrl)
   });
 }
 
