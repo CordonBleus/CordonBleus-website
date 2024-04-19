@@ -5,17 +5,18 @@ services:
     build:
       context: ./api
       dockerfile: ../docker/api.Dockerfile
+    ports:
+      - 3000:3000
     develop:
       watch:
-        - path: api/composer.json
+        - path: api/package.json
           action: rebuild
-        - path: api/composer.lock
+        - path: api/yarn.lock
           action: rebuild
         - path: api/
-          target: /app
           ignore:
-            - var/
-            - vendor/
+            - node_modules/
+          target: /app
           action: sync
 
   front:
