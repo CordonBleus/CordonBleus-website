@@ -30,7 +30,6 @@ createRoot(document.getElementById('root'))
 function LoginPage() {
     return <LoginForm />;
 }
-
 function RoomPage() {
     // Extract roomName from URL params
     let { roomName } = useParams();
