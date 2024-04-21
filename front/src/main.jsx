@@ -20,7 +20,6 @@ const router = createBrowserRouter([
         element:  <RoomListPage />,
     },
 ]);
-
 createRoot(document.getElementById('root'))
     .render(
         <React.StrictMode>
