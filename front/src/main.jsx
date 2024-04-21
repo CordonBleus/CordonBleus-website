@@ -28,7 +28,6 @@ createRoot(document.getElementById('root'))
         </React.StrictMode>,
     );
 function LoginPage() {
-
     return <LoginForm />;
 }
 
@@ -40,6 +39,5 @@ function RoomPage() {
 
 function RoomListPage() {
     let { rooms } = useParams();
-
     return <RoomList rooms={rooms}/>;
 }
