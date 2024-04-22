@@ -1,6 +1,6 @@
 // LoginForm.js
 // eslint-disable-next-line no-unused-vars
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
 // eslint-disable-next-line react/prop-types
 function LoginForm({onLogin}) {
@@ -8,10 +8,10 @@ function LoginForm({onLogin}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onLogin(username, email, password);
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        //onLogin(username, email, password);
+    };
 
   return (
     <form onSubmit={handleSubmit}>
