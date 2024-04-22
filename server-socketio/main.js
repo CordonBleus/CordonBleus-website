@@ -70,7 +70,6 @@ io.on('connection', (socket) => {
     })
 
     socket.on('join-room', ({ room, meetingLink }) => {
-        console.log("Called")
         const currentUser = users.get(socket.id)
         let roomUserList = getRoomUserList(room)
         try {
@@ -79,7 +78,6 @@ io.on('connection', (socket) => {
             console.log(error)
         }
         currentUser.room = room
-        console.log(roomExist(room))
         if (!roomExist(room)){
             rooms.push({
                 name: room,
@@ -88,8 +86,6 @@ io.on('connection', (socket) => {
                 }
             })
         }
-        console.log("=====================================")
-        console.log('rooms', rooms)
         users.set(socket.id, currentUser)
         roomUserList = getRoomUserList(room)
         io.to(room).emit('user-joined', {joiningUser: currentUser.username})

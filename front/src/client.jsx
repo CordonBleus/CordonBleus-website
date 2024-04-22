@@ -1,9 +1,10 @@
+import "./App.jsx"
 // Client.jsx
 import {useEffect, useRef, useState} from 'react';
-import {io} from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
 import LoginForm from './components/LoginForm.jsx';
 import RoomList from './components/RoomList.jsx';
 import Room from './components/Room.jsx';
+import {connectWS, disconnectWS, joinRoom, onJoinedRoom} from "./services/socketio/index.js";
 
 function Client() {
     const socketRef = useRef(null);
