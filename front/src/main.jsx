@@ -34,7 +34,6 @@ function RoomPage() {
     let { roomName } = useParams();
     return <Room roomName={roomName} />;
 }
-
 function RoomListPage() {
     let { rooms } = useParams();
     return <RoomList rooms={rooms}/>;
