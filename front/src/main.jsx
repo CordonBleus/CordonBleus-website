@@ -2,9 +2,10 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import React from 'react';
 import {createBrowserRouter, RouterProvider, useParams} from "react-router-dom";
-import LoginForm from "./components/LoginForm.jsx";
+import LoginForm from "./components/login/LoginForm.jsx";
 import Room from "./components/Room.jsx";
 import RoomList from "./components/RoomList.jsx";
+import Header from "./components/header/Header.jsx";
 
 const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
     {
         path: "/room-list",
         element:  <RoomListPage />,
+    },
+    {
+        path: "/header",
+        element:  <Header />,
     },
 ]);
 createRoot(document.getElementById('root'))
