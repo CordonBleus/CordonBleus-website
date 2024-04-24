@@ -1,3 +1,4 @@
+const { v4: uuidv4 } = require('uuid');
 const express = require('express');
 const app = express();
 const { createServer } = require("http");
@@ -7,12 +8,47 @@ const httpServer = createServer(app);
 const hostName = "127.0.0.1";
 const port = 3000;
 
+const bodyParser = require('body-parser');
+
 app.use(cors())
+app.use(bodyParser.json())
+
+// Local DB
+
+const users = new Map;
+
+const rooms = [];
 
 // Endpoints
 
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/old-index.html');
+app.post('/login', (req, res) => {
+    const data = req.body;
+    let userUuid = undefined;
+    if (data.userUuid != null) {
+        console.log(1)
+        let user = users.get(data.userUuid)
+        userUuid = data.userUuid
+        console.log(user)
+        if (user == null) {
+            console.log(4)
+            res.status(404).json({
+                "message": "User not found"
+            });
+        }
+    } else {
+        userUuid = uuidv4();
+        users.set(userUuid,
+          {
+              email: data.email,
+              username: data.username,
+              password: data.password,
+              room: data.socketId
+          }
+        )
+    }
+    res.status(201).json({
+        "userUuid": userUuid
+    });
 })
 
 const io = new Server(httpServer, {
@@ -22,11 +58,7 @@ const io = new Server(httpServer, {
     }
 });
 
-const users = new Map;
 
-const rooms = [];
-
-const markers = [];
 
 function getRoomUserList(room) {
     roomUserList = []
