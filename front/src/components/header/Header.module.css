@@ -3,7 +3,7 @@ body {
     font-family: Helvetica, sans-serif;
     background-color: #f4f4f4;
 }
-logoheader{
+.logoheader{
     height: 70px;
 }
 a {
@@ -51,6 +51,7 @@ a {
 /* menu */
 
 .header .menu {
+    margin-top: 9px;
     clear: both;
     max-height: 0;
     transition: max-height .2s ease-out;
