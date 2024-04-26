@@ -1,13 +1,4 @@
-import { io } from "socket.io-client";
-
-
-// const emitEvent = (event, props) => {
-//     return socket.emit(event, props)
-// }
-
-// const onEvent = (event, lambda) => {
-//     return socket.on(event, lambda)
-// }
+import {io} from "socket.io-client";
 
 export const connectWS = () => {
   return io.connect('http://127.0.0.1:3000/');
@@ -17,8 +8,8 @@ export const disconnectWS = (socket) => {
   return socket.close()
 }
 
-export const joinRoom = (socket, roomName, meetingLink) => {
-  socket.emit('join-room', {roomName, meetingLink})
+export const joinRoom = (socket, userUuid, roomName, meetingLink) => {
+  socket.emit('join-room', {userUuid, roomName, meetingLink})
 }
 
 export const onJoinedRoom = (socket, listener) => {
@@ -37,22 +28,3 @@ export const onSetRooms = (socket, listener) => {
     socket.off("rooms", listener)
   }
 }
-
-// export const onRooms = () => {
-//   let rooms = []
-//   socket.on("room-joined", (args) => {
-//     rooms = args.rooms
-//   })
-//   socket.on("rooms", (args) => {
-//     rooms = args.rooms
-//   })
-//   return rooms
-// }
-//
-// export const login = (username, email, password) => {
-//   socket.emit('login', {
-//     username,
-//     email,
-//     password
-//   })
-// }

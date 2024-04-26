@@ -24,21 +24,19 @@ function LoginForm() {
           return navigate("/room-list")
         }
       } catch (e) {
-        console.log(e)
-        console.log("old token")
+        console.log("Bad token")
       }
-      console.log("sending new user")
-      response = await axios.post(
-        "http://127.0.0.1:3000/login",
-        {
-          "username": username,
-          "email": email,
-          "password": password,
-          "socketId": "random"
-        }
-      )
-      localStorage.setItem("userUuid", response.data.userUuid)
     }
+    response = await axios.post(
+      "http://127.0.0.1:3000/login",
+      {
+        "username": username,
+        "email": email,
+        "password": password,
+        "socketId": "random"
+      }
+    )
+    localStorage.setItem("userUuid", response.data.userUuid)
     navigate("/room-list")
   };
 
