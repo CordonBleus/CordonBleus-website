@@ -11,7 +11,7 @@ const port = 3000;
 const bodyParser = require('body-parser');
 
 app.use(cors())
-app.use(bodyParser.json())
+app.use(express.json())
 
 // Local DB
 
@@ -101,8 +101,8 @@ io.on('connection', (socket) => {
         socket.emit('rooms', {rooms});
     })
 
-    socket.on('join-room', ({ room, meetingLink }) => {
-        const currentUser = users.get(socket.id)
+    socket.on('join-room', ({ userUuid, room, meetingLink }) => {
+        const currentUser = users.get(userUuid)
         let roomUserList = getRoomUserList(room)
         try {
             io.to(currentUser.room).emit('room-left', {roomUserList, userCount: socket.rooms.size});

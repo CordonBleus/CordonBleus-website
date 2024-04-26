@@ -9,20 +9,21 @@ function RoomList() {
 
   useEffect(() => {
     socket.current = (connectWS())
-    const onroomJOINcleanup = onJoinedRoom(socket, (args) => {
+    const onroomJOINcleanup = onJoinedRoom(socket.current, (args) => {
       setRooms(args)
     })
 
     return () => {
       onroomJOINcleanup()
-      disconnectWS()
+      disconnectWS(socket.current)
       socket.current = null
     }
   }, [])
 
-  const join = (roomName) => {
-    if (socket == null) return;
-    joinRoom(socket, roomName, 'https://meet.google.com/new')
+  const join = async (roomName) => {
+    if (socket.current == null) return;
+    const userUuid = localStorage.getItem("user")
+    joinRoom(userUuid, roomName, 'https://meet.google.com/new')
     setRoom(roomName);
   };
 

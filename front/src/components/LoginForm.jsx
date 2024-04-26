@@ -1,17 +1,46 @@
-// LoginForm.js
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-// eslint-disable-next-line react/prop-types
 function LoginForm() {
+  const navigate = useNavigate();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        //onLogin(username, email, password);
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let userUuid = localStorage.getItem("userUuid")
+    let response = undefined
+    if (userUuid == null) {
+      response = await axios.post(
+        "http://127.0.0.1:3000/login",
+        {
+          "username": "test",
+          "email": "test@gmail.com",
+          "password": "test",
+          "socketId": "random"
+        }
+      )
+      localStorage.setItem("userUuid", response.data.userUuid)
+    } else {
+      response = await axios.post(
+        "http://127.0.0.1:3000/login",
+        {
+          "userUuid": userUuid
+        }
+      )
+      console.log("userUuid: ", userUuid)
+      console.log(response)
+      if (response.status === 404) {
+        localStorage.removeItem("userUuid")
+        console.error("Wrong uuid for the user")
+        return
+      }
+    }
+    navigate("/room-list")
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -45,6 +74,7 @@ function LoginForm() {
         onChange={(e) => setPassword(e.target.value)}
         required
       />
+      <Link to="/room-list">hello</Link>
       <button type="submit">Login</button>
     </form>
   );

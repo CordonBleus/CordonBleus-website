@@ -7,34 +7,37 @@ import Room from "./components/Room.jsx";
 import RoomList from "./components/RoomList.jsx";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element:  <LoginPage />,
-    },
-    {
-        path: "/room/:roomName",
-        element:  <RoomPage />,
-    },
-    {
-        path: "/room-list",
-        element:  <RoomListPage />,
-    },
+  {
+    path: "/",
+    element: <LoginPage/>,
+  },
+  {
+    path: "/room/:roomName",
+    element: <RoomPage/>,
+  },
+  {
+    path: "/room-list",
+    element: <RoomListPage/>,
+  },
 ]);
 createRoot(document.getElementById('root'))
-    .render(
-        <React.StrictMode>
-            <RouterProvider router={router} />
-        </React.StrictMode>,
-    );
+  .render(
+    <React.StrictMode>
+      <RouterProvider router={router}/>
+    </React.StrictMode>,
+  );
+
 function LoginPage() {
-    return <LoginForm />;
+  return <LoginForm/>;
 }
+
 function RoomPage() {
-    // Extract roomName from URL params
-    let { roomName } = useParams();
-    return <Room roomName={roomName} />;
+  // Extract roomName from URL params
+  let {roomName} = useParams();
+  return <Room roomName={roomName}/>;
 }
+
 function RoomListPage() {
-    let { rooms } = useParams();
-    return <RoomList rooms={rooms}/>;
+  let {rooms} = useParams();
+  return <RoomList rooms={rooms}/>;
 }
