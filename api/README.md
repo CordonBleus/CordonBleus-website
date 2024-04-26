@@ -26,3 +26,5 @@ response is like :
   "meetingUri": "https://meet.google.com/xxx-xxx-xxx"
 }
 ```
+
+Only the account that created the meeting can join the meeting without asking permission to join.
