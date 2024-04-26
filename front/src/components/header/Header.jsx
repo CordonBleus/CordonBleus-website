@@ -10,7 +10,7 @@ function Header() {
             <input className={styleHeader.menubtn} type="checkbox" id="menubtn"/>
             <label className={styleHeader.menuIcon} htmlFor="menubtn"><span className={styleHeader.navicon}></span></label>
             <ul className={styleHeader.menu}>
-                <li><a href="#contact">Do you have an acccount ?</a></li>
+                <li><a href="#">Do you have an acccount ?</a></li>
                 <Button text={"Sigin up"}/>
             </ul>
         </header>

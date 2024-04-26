@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import LoginFormStyle from "./LoginForm.module.css"
 
 function LoginForm() {
     const navigate = useNavigate();
@@ -43,40 +44,58 @@ function LoginForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <h2>Login</h2>
-            <label htmlFor="username">Username:</label>
-            <input
-                type="text"
-                id="username"
-                name="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                required
-            />
-            <br/>
-            <label htmlFor="email">Email:</label>
-            <input
-                type="email"
-                id="email"
-                name="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-            />
-            <br/>
-            <label htmlFor="password">Password:</label>
-            <input
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-            />
-            <Link to="/room-list">hello</Link>
-            <button type="submit">Login</button>
-        </form>
+        <div className={LoginFormStyle.section}>
+            <h3 className={LoginFormStyle.formTitle}>Welcome back!</h3>
+            <div className={LoginFormStyle.form}>
+                <form onSubmit={handleSubmit}>
+                    <label className={LoginFormStyle.label} htmlFor="username">Username:</label>
+                    <br/>
+                    <input
+                        type="text"
+                        id="username" name="username"
+                        value={username}
+                        className={LoginFormStyle.fieldUser}
+                        placeholder={"username"}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+                    <br/>
+                    <br/>
+                    <label className={LoginFormStyle.label} htmlFor="email">Email:</label>
+                    <br/>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={email}
+                        placeholder={"example@example.com"}
+                        className={LoginFormStyle.fieldemail}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                    />
+                    <br/>
+                    <br/>
+                    <label className={LoginFormStyle.label} htmlFor="password">Password:</label>
+                    <br/>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={password}
+                        placeholder="**************"
+                        className={LoginFormStyle.fieldpassword}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                    <br/>
+                    <br/>
+                    <div className={LoginFormStyle.buttonFromdiv}>
+                        <button className={LoginFormStyle.buttonFrom} type="submit">Log in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
     );
 }
 
