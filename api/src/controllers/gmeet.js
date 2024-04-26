@@ -3,7 +3,7 @@ import {createRoom, getRoom} from '../services/gmeet.js'
 
 export class GMeetController {
   static async createRoom(req, res) {
-    const [roomName, meetingUri] = await createRoom()
+    const [roomName, meetingUri] = await createRoom(req.body)
     res.status(201).json({roomName, meetingUri})
   }
 

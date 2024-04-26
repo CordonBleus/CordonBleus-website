@@ -1,7 +1,6 @@
 import {OAuth2Client} from 'google-auth-library'
 // import http from 'http'
 // import url from 'url'
-
 // Download your OAuth2 configuration from the Google
 import keys from '../../data/credentials.json'
 
@@ -9,30 +8,14 @@ import keys from '../../data/credentials.json'
  * Start by acquiring a pre-authenticated oAuth2 client.
  */
 export async function googleLogin() {
-  const oAuth2ClientURI = await getAuthenticatedClient()
-
-  return oAuth2ClientURI
-  // Make a simple request to the People API using our pre-authenticated client. The `request()` method
-  // takes an GaxiosOptions object.  Visit https://github.com/JustinBeckwith/gaxios.
-  // const url = 'https://people.googleapis.com/v1/people/me?personFields=names'
-  // const res = await oAuth2Client.request({url})
-  // console.log(res.data)
-
-  // After acquiring an access_token, you may want to check on the audience, expiration,
-  // or original scopes requested.  You can do that with the `getTokenInfo` method.
-  // const tokenInfo = await oAuth2Client.getTokenInfo(
-  //   oAuth2Client.credentials.access_token
-  // );
-
-  // console.log(tokenInfo)
-  // return tokenInfo
+  return await getAuthenticatedClientURI()
 }
 
 /**
  * Create a new OAuth2Client, and go through the OAuth2 content
  * workflow.  Return the full client to the callback.
  */
-function getAuthenticatedClient() {
+function getAuthenticatedClientURI() {
   return new Promise((resolve) => {
     // create an oAuth client to authorize the API call.  Secrets are kept in a `keys.json` file,
     // which should be downloaded from the Google Developers Console.
@@ -45,7 +28,11 @@ function getAuthenticatedClient() {
     // Generate the url that will be used for the consent dialog.
     const authorizeUrl = oAuth2Client.generateAuthUrl({
       access_type: 'offline',
-      scope: 'https://www.googleapis.com/auth/userinfo.profile',
+      scope: [
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/meetings.space.readonly',
+        'https://www.googleapis.com/auth/meetings.space.created',
+      ],
     });
 
     console.log('Authorize this app by visiting this url:', authorizeUrl)
@@ -53,34 +40,28 @@ function getAuthenticatedClient() {
   });
 }
 
-// Open a http server to accept the oauth callback. In this simple example, the
-// only request to our webserver is to /oauth2callback?code=<code>
 
-// const server = http
-//   .createServer(async (req, res) => {
-//     try {
-//       if (req.url.indexOf('/oauth2callback') > -1) {
-//         // acquire the code from the querystring, and close the web server.
-//         const qs = new url.URL(req.url, 'http://localhost:3000')
-//           .searchParams;
-//         const code = qs.get('code');
-//         console.log(`Code is ${code}`);
-//         res.end('Authentication successful! Please return to the console.');
-//         server.destroy();
-//
-//         // Now that we have the code, use that to acquire tokens.
-//         const r = await oAuth2Client.getToken(code);
-//         // Make sure to set the credentials on the OAuth2 client.
-//         oAuth2Client.setCredentials(r.tokens);
-//         console.info('Tokens acquired.');
-//         resolve(oAuth2Client);
-//       }
-//     } catch (e) {
-//       reject(e);
-//     }
-//   })
-//   .listen(3000, () => {
-//     // open the browser to authorize url to start the workflow
-//     open(authorizeUrl, {wait: false}).then(cp => cp.unref());
-//   });
-// destroyer(server);
+export async function setGoogleToken(query) {
+  const oAuth2Client = await getAuthenticatedClient()
+  const tokens = await oAuth2Client.getToken(query.code)
+  oAuth2Client.setCredentials(tokens)
+  // console.log(oAuth2Client)
+  return {
+    "type": "authorized_user",
+    "client_id": keys.web.client_id,
+    "client_secret": keys.web.client_secret,
+    "refresh_token": tokens.tokens.refresh_token,
+  }
+  // return await oAuth2Client.getTokenInfo(tokens.tokens.access_token)
+}
+
+function getAuthenticatedClient() {
+  return new Promise((resolve) => {
+    const oAuth2Client = new OAuth2Client(
+      keys.web.client_id,
+      keys.web.client_secret,
+      keys.web.redirect_uris[0]
+    )
+    resolve(oAuth2Client)
+  })
+}

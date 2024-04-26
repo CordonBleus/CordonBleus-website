@@ -1,15 +1,14 @@
-import {googleLogin} from '../services/google-login.js'
+import {googleLogin, setGoogleToken} from '../services/google-login.js'
 
 
 export class GLoginController {
   static async login(req, res) {
     const link = await googleLogin()
-    res.status(200).json(link)
+    res.redirect(link)
   }
 
-  // static async callback(req, res) {
-  //   await setGoogleToken()
-  //   res.status(200)
-  // }
-
+  static async callback(req, res) {
+    const token = await setGoogleToken(req.query)
+    res.redirect(`http://localhost:5173/?token=${btoa(token.refresh_token)}`)
+  }
 }

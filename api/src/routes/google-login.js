@@ -5,6 +5,6 @@ const gLoginRouter = express.Router()
 
 gLoginRouter.post('/login', GLoginController.login)
 
-// gLoginController.get('/callback', GLoginController.callback)
+gLoginRouter.get('/callback', GLoginController.callback)
 
 export default gLoginRouter
