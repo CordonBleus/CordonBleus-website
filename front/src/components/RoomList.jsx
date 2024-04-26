@@ -11,7 +11,7 @@ function RoomList({rooms, onRoomSelect}) {
         {rooms.map((room) => (
           <li key={room.name}>  {/* Use unique identifier if available */}
             <button onClick={() => onRoomSelect(room.id || room.name)}>
-              {room.name || room} {/* Display room name if available */}
+              {room.name || room} {/* Display room name if available */}    
             </button>
           </li>
         ))}
