@@ -375,6 +375,13 @@
   dependencies:
     google-gax "^4.0.3"
 
+"@google-apps/meet@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@google-apps/meet/-/meet-0.2.0.tgz#f5d4c9e9484613c62ab4ca4a6d8b14e4791e9c15"
+  integrity sha512-zAXOwATuZHAFm/gSm991bHrl/8oe0Iw8kG3rxGXT0z0r5mMkzdhwsq9bsbt/L99oKDy6Z3X2wf5LBdPfz2XkAw==
+  dependencies:
+    google-gax "^4.0.3"
+
 "@google-cloud/local-auth@^3.0.1":
   version "3.0.1"
   resolved "https://registry.npmjs.org/@google-cloud/local-auth/-/local-auth-3.0.1.tgz"

@@ -8,11 +8,22 @@ if (!AppDataSource.isInitialized) {
   await AppDataSource.initialize();
 }
 
+import gMeetRouter from "./routes/gmeet"
+import gLoginRouter from "./routes/google-login";
+
 const app = express();
+app.use(express.json());
 
 app.get("/recipes", getAllRecipes);
 app.get("/recipes/search", searchRecipes);
 app.get("/recipes/:id", getSingleRecipe);
+
+app.use('/api/meet', gMeetRouter);
+app.use('/api/google', gLoginRouter);
+
+app.get('/', (_, res) => {
+  res.send('Welcome to the API!');
+})
 
 if (import.meta.env.PROD) {
   app.listen(3000, () => {
