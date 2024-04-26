@@ -5,6 +5,8 @@ import gLoginRouter from "./routes/google-login";
 
 const app = express();
 
+app.use(express.json());
+
 app.use('/api/meet', gMeetRouter);
 app.use('/api/google', gLoginRouter);
 
