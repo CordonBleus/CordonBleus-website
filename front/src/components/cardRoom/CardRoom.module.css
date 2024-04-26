@@ -1,0 +1,21 @@
+.card{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    background-color: white;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+.inline1, .inline2 {
+    display: inline-block;
+    /* Add margins or padding for spacing */
+}
+.joinButoon{
+    float: right;
+}

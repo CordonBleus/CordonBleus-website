@@ -3,7 +3,7 @@ import React from "react";
 import styleHeader from "./Header.module.css"
 import logoHorizontal from "../../assets/logo/1_treansparente.png"
 import Button from "../button/button.jsx";
-function Header() {
+function Header({user}) {
     return (
         <header className={styleHeader.header}>
             <a href="" ><img src={logoHorizontal} className={styleHeader.logoheader}/></a>

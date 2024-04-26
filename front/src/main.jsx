@@ -5,6 +5,7 @@ import {createBrowserRouter, RouterProvider, useParams} from "react-router-dom";
 import Room from "./components/Room.jsx";
 import RoomList from "./components/RoomList.jsx";
 import LoginPage from "./pages/login/LoginPage.jsx";
+import RoomsPage from "./pages/rooms/RoomsPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/room-list",
-    element: <RoomListPage/>,
+    element: <Rooms/>,
   },
 ]);
 createRoot(document.getElementById('root'))
@@ -37,7 +38,7 @@ function RoomPage() {
   return <Room roomName={roomName}/>;
 }
 
-function RoomListPage() {
+function Rooms() {
   let {rooms} = useParams();
-  return <RoomList rooms={rooms}/>;
+  return <RoomsPage rooms={rooms}/>;
 }

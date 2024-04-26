@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.inline1, .inline2 {
+    display: inline-block;
+    /* Add margins or padding for spacing */
+}
+.joinButoon{
+    float: right;
+}
+.timeText{
+    color: grey
+}
