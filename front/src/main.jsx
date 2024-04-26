@@ -2,15 +2,15 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import React from 'react';
 import {createBrowserRouter, RouterProvider, useParams} from "react-router-dom";
-import LoginForm from "./components/login/LoginForm.jsx";
 import Room from "./components/Room.jsx";
 import RoomList from "./components/RoomList.jsx";
 import Header from "./components/header/Header.jsx";
+import LoginPage from "./pages/login/LoginPage.jsx"
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element:  <LoginPage />,
+        element:  <Login />,
     },
     {
         path: "/room/:roomName",
@@ -31,8 +31,8 @@ createRoot(document.getElementById('root'))
             <RouterProvider router={router} />
         </React.StrictMode>,
     );
-function LoginPage() {
-    return <LoginForm />;
+function Login() {
+    return <LoginPage />;
 }
 function RoomPage() {
     // Extract roomName from URL params

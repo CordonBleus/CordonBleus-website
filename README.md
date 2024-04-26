@@ -8,7 +8,7 @@
 docker compose watch
 ```
 
-After running the command, you can access http://localhost:5173/ to view the application.
+    After running the command, you can access http://localhost:5173/ to view the application.
 All modifications are reflected in real-time for the API server and the frontend.
 
 ## Toolbox

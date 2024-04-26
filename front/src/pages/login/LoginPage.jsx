@@ -1,14 +1,20 @@
 import React from "react";
+import LoginForm from "../../components/login/LoginForm.jsx";
+import Header from "../../components/header/Header.jsx";
 
 /**
  * Login Page
  * @returns {Element}
  * @constructor
  */
-function Login() {
+function LoginPage() {
     return (
-        <h1>Page Login</h1>
+        <>
+            <Header />
+            <br/>
+            <LoginForm />
+        </>
     );
 }
 
-export default Login;
+export default LoginPage;
