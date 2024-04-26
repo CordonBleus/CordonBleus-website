@@ -25,30 +25,36 @@ app.post('/login', (req, res) => {
     const data = req.body;
     let userUuid = undefined;
     if (data.userUuid != null) {
-        console.log(1)
-        let user = users.get(data.userUuid)
         userUuid = data.userUuid
-        console.log(user)
-        if (user == null) {
-            console.log(4)
-            res.status(404).json({
-                "message": "User not found"
+        let user = users.get(userUuid)
+        if (user != null) {
+            return res.status(201).json({
+                "userUuid": userUuid
             });
         }
+        return res.status(404).json({
+            "message": "User not found"
+        });²
     } else {
-        userUuid = uuidv4();
-        users.set(userUuid,
-          {
-              email: data.email,
-              username: data.username,
-              password: data.password,
-              room: data.socketId
-          }
-        )
+        if (data.email && data.username && data.password && data.socketId){
+            userUuid = uuidv4();
+            users.set(userUuid,
+              {
+                  email: data.email,
+                  username: data.username,
+                  password: data.password,
+                  room: data.socketId
+              }
+            )
+            res.status(201).json({
+                "userUuid": userUuid
+            });
+        } else {
+            return res.status(400).json({
+                "message": "Incorrect data"
+            });
+        }
     }
-    res.status(201).json({
-        "userUuid": userUuid
-    });
 })
 
 const io = new Server(httpServer, {
@@ -126,8 +132,8 @@ io.on('connection', (socket) => {
         io.sockets.emit('rooms', {rooms});
     })
 
-    socket.on('leave-room', () => {
-        let currentUser = users.get(socket.id)
+    socket.on('leave-room', (userUuid) => {
+        let currentUser = users.get(userUuid)
         users.forEach(user => {
             if (currentUser.room !== user.room) {
 
