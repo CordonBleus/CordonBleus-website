@@ -57,6 +57,14 @@ app.post('/login', (req, res) => {
     }
 })
 
+app.get('/rooms', (req, res) => {
+    console.log(rooms)
+    return res.status(200).json({
+        "rooms": rooms
+    })
+})
+
+
 const io = new Server(httpServer, {
     cors: {
         origin: "*",
@@ -78,9 +86,6 @@ function getRoomUserList(room) {
 
 function roomExist(givenRoomName) {
     rooms.forEach(room => {
-        console.log("$$$$$$$$$$$$$$$$$$")
-        console.log(typeof room.name, typeof givenRoomName)
-        console.log(room.name, givenRoomName)
         if (room.name === givenRoomName) return true
     })
     return false
@@ -96,39 +101,29 @@ function getRoomIndex(givenRoomName) {
 
 io.on('connection', (socket) => {
 
-    socket.on('login', ({username, email, password}) => {
-        users.set(socket.id, {
-            username,
-            email,
-            password,
-            room: socket.id,
-        })
-        console.log('my username', users.get(socket.id))
-        socket.emit('rooms', {rooms});
-    })
-
-    socket.on('join-room', ({ userUuid, room, meetingLink }) => {
+    socket.on('join-room', ({ userUuid, roomName, meetingLink }) => {
         const currentUser = users.get(userUuid)
-        let roomUserList = getRoomUserList(room)
+        let roomUserList = getRoomUserList(roomName)
+        console.log(roomName)
         try {
             io.to(currentUser.room).emit('room-left', {roomUserList, userCount: socket.rooms.size});
         } catch (error) {
             console.log(error)
         }
-        currentUser.room = room
-        if (!roomExist(room)){
+        currentUser.room = roomName
+        if (!roomExist(roomName)){
             rooms.push({
-                name: room,
+                name: roomName,
                 roomInfo: {
                     recipe: [], meetingLink: meetingLink,
                 }
             })
         }
         users.set(socket.id, currentUser)
-        roomUserList = getRoomUserList(room)
-        io.to(room).emit('user-joined', {joiningUser: currentUser.username})
-        socket.join(room);
-        io.to(room).emit('room-joined', {roomUserList, userCount: socket.rooms.size});
+        roomUserList = getRoomUserList(roomName)
+        io.to(roomName).emit('user-joined', {joiningUser: currentUser.username})
+        socket.join(roomName);
+        io.to(roomName).emit('room-joined', {roomUserList, userCount: socket.rooms.size});
         io.sockets.emit('rooms', {rooms});
     })
 
@@ -152,24 +147,6 @@ io.on('connection', (socket) => {
     //     rooms[roomIndex].messageList.push(formattedMessage)
     //     io.to(currentUser.room).emit('message-received', {formattedMessage, messageList: rooms[roomIndex].messageList})
     //
-    // })
-
-    // socket.on('update-position', (args) => {
-    //     const currentUser = users.get(socket.id)
-    //     if (currentUser) {
-    //         if (currentUser.room){
-    //             io.to(currentUser.room).emit('user-position', {username: currentUser.username, latLng: args})
-    //         }
-    //     }
-    // })
-
-    // socket.on('destination-marker', (args) => {
-    //     const currentUser = users.get(socket.id)
-    //     if (currentUser) {
-    //         if (currentUser.room){
-    //             io.to(currentUser.room).emit('destination-marker-updated', {username: currentUser.username, latLng: args})
-    //         }
-    //     }
     // })
 
     socket.on('disconnect', () => {
