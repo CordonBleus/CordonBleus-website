@@ -34,7 +34,7 @@ app.post('/login', (req, res) => {
         }
         return res.status(404).json({
             "message": "User not found"
-        });²
+        });
     } else {
         if (data.email && data.username && data.password && data.socketId){
             userUuid = uuidv4();
