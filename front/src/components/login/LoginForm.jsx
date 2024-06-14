@@ -3,44 +3,24 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import LoginFormStyle from "./LoginForm.module.css"
+import {io} from "socket.io-client";
+
+const socket = io('http://127.0.0.1:3000');
 
 function LoginForm() {
-    const navigate = useNavigate();
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
-    const handleSubmit = async (e) => {
+    /**
+     *  Login Socket
+     * @param e
+     */
+    const handleSubmit = (e) => {
         e.preventDefault();
-        let userUuid = localStorage.getItem("userUuid")
-        let response = undefined
-        if (userUuid == null) {
-            response = await axios.post(
-                "http://127.0.0.1:3000/login",
-                {
-                    "username": "test",
-                    "email": "test@gmail.com",
-                    "password": "test",
-                    "socketId": "random"
-                }
-            )
-            localStorage.setItem("userUuid", response.data.userUuid)
-        } else {
-            response = await axios.post(
-                "http://127.0.0.1:3000/login",
-                {
-                    "userUuid": userUuid
-                }
-            )
-            console.log("userUuid: ", userUuid)
-            console.log(response)
-            if (response.status === 404) {
-                localStorage.removeItem("userUuid")
-                console.error("Wrong uuid for the user")
-                return
-            }
-        }
-        navigate("/room-list")
+        socket.emit('login', { username, email, password });
+        socket.on('rooms', (data) => {
+            console.log("From server :"+data[0]);
+        });
     };
 
     return (

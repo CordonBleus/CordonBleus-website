@@ -16,6 +16,7 @@ function LoginPage() {
             <Header />
             <br/>
             <LoginForm/>
+            {/* eslint-disable-next-line react/no-unescaped-entities */}
             <p className={LoginPageStyle.textSinIn}>You don't have an account? <a className={LoginPageStyle.textSinIn} href={"#"}>Sin Up</a></p>
         </section>
     );
