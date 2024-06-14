@@ -1,0 +1,12 @@
+.page{
+    background-color: white;
+    background-image: url("../../assets/background/div.login-page-new__main-bg.svg");
+    background-size: cover;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+.textSinIn{
+    color: white;
+    text-align: center;
+}
