@@ -28,6 +28,11 @@ export const Recipe = new EntitySchema({
       type: "int",
       nullable: false,
     },
+    steps: {
+      type: "simple-json",
+      nullable: false,
+      default: [],
+    },
   },
   relations: {
     ingredients: {
