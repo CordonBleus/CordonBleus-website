@@ -10,6 +10,7 @@ interface IRecipe {
   imageUrl: string,
   cookingTime: number,
   prepTime: number,
+  steps: Array<string>,
   ingredients: Array<IIngredient>
 }
 
