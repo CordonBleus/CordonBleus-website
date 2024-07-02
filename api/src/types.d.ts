@@ -1,6 +1,7 @@
 interface IIngredient {
   id: number,
   name: string,
+  quantity: number,
   imageUrl?: string,
 }
 
@@ -20,3 +21,5 @@ interface IUser {
   password: string,
   email: string,
 }
+
+type SeedFunction = (() => Promise<void>) & { seedName: string }
