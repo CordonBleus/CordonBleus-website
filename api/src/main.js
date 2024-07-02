@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import {AppDataSource} from "./data-source.js";
 import {getAllRecipes} from "./routes/recipes/all.js";
 import {getSingleRecipe} from "./routes/recipes/single.js";
@@ -13,6 +14,7 @@ import gLoginRouter from "./routes/google-login";
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 app.get("/recipes", getAllRecipes);
 app.get("/recipes/search", searchRecipes);
