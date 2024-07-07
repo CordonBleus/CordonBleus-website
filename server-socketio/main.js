@@ -58,7 +58,6 @@ app.post('/login', (req, res) => {
 })
 
 app.get('/rooms', (req, res) => {
-    console.log(rooms)
     return res.status(200).json({
         "rooms": rooms
     })
@@ -85,10 +84,8 @@ function getRoomUserList(room) {
 }
 
 function roomExist(givenRoomName) {
-    rooms.forEach(room => {
-        if (room.name === givenRoomName) return true
-    })
-    return false
+    const isInRooms = rooms.find(room => room.name === givenRoomName)
+    return isInRooms !== undefined
  }
 
 function getRoomIndex(givenRoomName) {
@@ -104,11 +101,10 @@ io.on('connection', (socket) => {
     socket.on('join-room', ({ userUuid, roomName, meetingLink }) => {
         const currentUser = users.get(userUuid)
         let roomUserList = getRoomUserList(roomName)
-        console.log(roomName)
         try {
             io.to(currentUser.room).emit('room-left', {roomUserList, userCount: socket.rooms.size});
         } catch (error) {
-            console.log(error)
+            // console.log(error)
         }
         currentUser.room = roomName
         if (!roomExist(roomName)){
@@ -124,7 +120,7 @@ io.on('connection', (socket) => {
         io.to(roomName).emit('user-joined', {joiningUser: currentUser.username})
         socket.join(roomName);
         io.to(roomName).emit('room-joined', {roomUserList, userCount: socket.rooms.size});
-        io.sockets.emit('rooms', {rooms});
+        // io.sockets.emit('rooms', {rooms});
     })
 
     socket.on('leave-room', (userUuid) => {
@@ -150,26 +146,27 @@ io.on('connection', (socket) => {
     // })
 
     socket.on('disconnect', () => {
-        const currentUser = users.get(socket.id)
-        rooms.forEach(room => {
-            let isEmptyRoom = true
-
-            users.delete(socket.id)
-
-            users.forEach(user => {
-                if (room === user.room) {
-                    isEmptyRoom = false
-                }
-            })
-            if (isEmptyRoom) {
-                rooms.splice(rooms.indexOf(room), 1)
-            }
-        })
-        if (currentUser) {
-            const roomUserList = getRoomUserList(currentUser.room)
-            io.to(currentUser.room).emit('room-left', {roomUserList, userCount: socket.rooms.size});
-        }
-        io.sockets.emit('rooms', {rooms});
+        console.log("disconnecting")
+        // const currentUser = users.get(socket.id)
+        // rooms.forEach(room => {
+        //     let isEmptyRoom = true
+        //
+        //     users.delete(socket.id)
+        //
+        //     users.forEach(user => {
+        //         if (room === user.room) {
+        //             isEmptyRoom = false
+        //         }
+        //     })
+        //     if (isEmptyRoom) {
+        //         rooms.splice(rooms.indexOf(room), 1)
+        //     }
+        // })
+        // if (currentUser) {
+        //     const roomUserList = getRoomUserList(currentUser.room)
+        //     io.to(currentUser.room).emit('room-left', {roomUserList, userCount: socket.rooms.size});
+        // }
+        // io.sockets.emit('rooms', {rooms});
 
     });
 

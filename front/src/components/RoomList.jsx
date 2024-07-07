@@ -39,7 +39,7 @@ function RoomList() {
     if (socket.current == null) return;
     const userUuid = localStorage.getItem("userUuid")
     joinRoom(socket.current, userUuid, roomName, 'https://meet.google.com/new')
-    // navigate("/room-list")
+    navigate(`/room/${roomName}`)
     // console.log(rooms)
   };
 
