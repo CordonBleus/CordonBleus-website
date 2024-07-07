@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Header from "../../components/header/Header.jsx";
 import RoomsPageStyle from "./RoomsPage.module.css";
 import CardRoom from "../../components/cardRoom/CardRoom.jsx";
@@ -13,9 +13,39 @@ import {useNavigate} from "react-router-dom";
  */
 function RoomsPage({room}) {
 
-  const handleClick = async () => {
+  useEffect(() => {
+    const url = new URL(window.location.href)
+    const token = url.searchParams.get('token')
+    if (token) {
+      localStorage.setItem('googleToken', atob(token))
+      createRoom()
+    }
 
-    location = import.meta.env.VITE_API_URI + '/api/google/login'
+  }, []);
+
+  const handleClick = async () => {
+    const googleToken = localStorage.getItem('googleToken')
+    if (!googleToken) {
+      location = import.meta.env.VITE_API_URI + '/api/google/login'
+    } else {
+      createRoom()
+    }
+  }
+
+  const createRoom = async () => {
+    const response = await fetch(import.meta.env.VITE_API_URI + '/api/meet', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        type: 'authorized_user',
+        refresh_token: localStorage.getItem('googleToken'),
+        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+        client_secret: import.meta.env.VITE_GOOGLE_CLIENT_SECRET
+      })
+    })
+    console.log(response.json())
   }
 
   return (
