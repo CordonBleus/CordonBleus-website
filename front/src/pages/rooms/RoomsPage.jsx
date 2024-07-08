@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Header from "../../components/header/Header.jsx";
 import RoomsPageStyle from "./RoomsPage.module.css";
 import CardRoom from "../../components/cardRoom/CardRoom.jsx";
@@ -12,6 +12,7 @@ import {useNavigate} from "react-router-dom";
  * @constructor
  */
 function RoomsPage({room}) {
+  const [rooms, setRooms] = useState([])
 
   useEffect(() => {
     const url = new URL(window.location.href)
@@ -48,14 +49,21 @@ function RoomsPage({room}) {
     const result = await response.json()
     console.log(result)
 
-    // TODO: update rooms list (List of Room Cards must have props)
+    rooms.push({
+      id: result.roomName.substring(result.roomName.indexOf('/') + 1, result.roomName.length),
+      meetingUrl: result.meetingUri,
+      title: "Lorem Ipsum Title",
+      description: "Lorem Ipsum Dolor Sit Amet Description",
+      time: "60 min"
+    })
+    setRooms([...rooms])
   }
 
   return (
         <section className={RoomsPageStyle.page}>
             <Header />
                 <h1 className={RoomsPageStyle.title}>Rooms</h1>
-            <ListOfRoomCards  />
+            <ListOfRoomCards rooms={rooms} />
             <Button text={"Create Room"} onClick={handleClick}/>
         </section>
     );
