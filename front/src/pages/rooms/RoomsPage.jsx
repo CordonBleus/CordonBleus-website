@@ -45,7 +45,10 @@ function RoomsPage({room}) {
         client_secret: import.meta.env.VITE_GOOGLE_CLIENT_SECRET
       })
     })
-    console.log(response.json())
+    const result = await response.json()
+    console.log(result)
+
+    // TODO: update rooms list (List of Room Cards must have props)
   }
 
   return (
