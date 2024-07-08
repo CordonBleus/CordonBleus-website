@@ -18,7 +18,7 @@ function RoomsPage({room}) {
     const token = url.searchParams.get('token')
     if (token) {
       localStorage.setItem('googleToken', atob(token))
-      createRoom()
+      createRoom() // Or redirect to the room creation page
     }
 
   }, []);
