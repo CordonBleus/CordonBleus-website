@@ -2,6 +2,7 @@
 import React from 'react';
 import CardRoom from '../cardRoom/CardRoom.jsx';
 import styleCardRoom from "./ListOfRoomCards.module.css"
+import PropTypes from "prop-types";
 
 const cardRoomData = [
     {
@@ -49,14 +50,24 @@ const cardRoomData = [
     // Add more items as needed
 ];
 
-function ListOfRoomCards() {
+function ListOfRoomCards({rooms}) {
     return (
         <div className={styleCardRoom.cardContainer}>
-            {cardRoomData.map((cardRoomInfo) => (
+            {rooms.map((cardRoomInfo) => (
                 <CardRoom key={cardRoomInfo.id} cardRoomInfo={cardRoomInfo} />
             ))}
         </div>
     );
 }
+
+ListOfRoomCards.propTypes = {
+    rooms: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        time: PropTypes.string.isRequired,
+        meetingUrl: PropTypes.string.isRequired
+    }))
+};
 
 export default ListOfRoomCards;
