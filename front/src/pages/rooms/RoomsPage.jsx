@@ -28,7 +28,7 @@ function RoomsPage({room}) {
     if (!googleToken) {
       location = import.meta.env.VITE_API_URI + '/api/google/login'
     } else {
-      createRoom()
+      await createRoom()
     }
   }
 
