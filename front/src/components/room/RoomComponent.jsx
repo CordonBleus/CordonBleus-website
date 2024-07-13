@@ -4,7 +4,10 @@ function RoomComponent({meetingUrl}) {
     return (
         <div>
             <div>
-                <a href={meetingUrl} target="_blank"><p>Video meet</p></a><a><p>Recette</p></a><a><p>Ingrédients</p></a><a><p>Participants</p></a>
+                <a href={meetingUrl} target="_blank"><p>Video meet</p></a>
+                <p>Recette</p>
+                <p>Ingrédients</p>
+                <p>Participants</p>
             </div>
         </div>
     );
