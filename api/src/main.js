@@ -1,24 +1,27 @@
 import express from "express";
 import cors from "cors";
 import {AppDataSource} from "./data-source.js";
-import {getAllRecipes} from "./routes/recipes/all.js";
 import {getSingleRecipe} from "./routes/recipes/single.js";
 import {searchRecipes} from "./routes/recipes/search.js";
+import gMeetRouter from "./routes/gmeet"
+import gLoginRouter from "./routes/google-login"
+import { seedIfNeeded } from "./seed/index"
 
 if (!AppDataSource.isInitialized) {
   await AppDataSource.initialize();
 }
 
-import gMeetRouter from "./routes/gmeet"
-import gLoginRouter from "./routes/google-login";
+
+
+seedIfNeeded();
 
 const app = express();
 app.use(express.json());
 app.use(cors())
 
-app.get("/recipes", getAllRecipes);
-app.get("/recipes/search", searchRecipes);
-app.get("/recipes/:id", getSingleRecipe);
+app.get('/api/recipes', displayAllRecipes);
+app.get('/api/recipes/search', searchRecipes);
+app.get('/api/recipes/:id', getSingleRecipe);
 
 app.use('/api/meet', gMeetRouter);
 app.use('/api/google', gLoginRouter);
