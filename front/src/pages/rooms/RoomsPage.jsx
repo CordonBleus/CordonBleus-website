@@ -1,17 +1,15 @@
 import React, {useEffect, useState} from "react";
 import Header from "../../components/header/Header.jsx";
 import RoomsPageStyle from "./RoomsPage.module.css";
-import CardRoom from "../../components/cardRoom/CardRoom.jsx";
 import ListOfRoomCards from "../../components/listOfRoomCards/ListOfRoomCards.jsx";
 import Button from "../../components/button/button.jsx";
-import {useNavigate} from "react-router-dom";
 
 /**
  * Login Page
  * @returns {Element}
  * @constructor
  */
-function RoomsPage({room}) {
+function RoomsPage() {
   const [rooms, setRooms] = useState([])
 
   useEffect(() => {

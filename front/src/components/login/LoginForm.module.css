@@ -1,74 +1,59 @@
-.section{
-    padding: 50px;
+.section {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 64px - 128px);
     background-color: white;
-    width: fit-content;
-    height: fit-content;
-    margin: auto;
-    margin-top: 5%;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    border-radius: 15px;
-}
-.formTitle{
-    text-align: center;
+    border-radius: 16px;
+    padding: 32px 64px;
+    margin: 64px auto 16px;
     color: black;
+    max-width: 500px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
 }
-.form{
-    display: flex; /* Enables flexbox for row layout */
-    flex-direction: column; /* Stacks elements vertically */
-    align-items: flex-end; /* Aligns elements to the end (right) of the container */
-}
-.vertical-right {
-    display: flex; /* Enables flexbox for row layout */
-    flex-direction: column; /* Stacks elements vertically */
-    align-items: flex-end; /* Aligns elements to the end (right) of the container */
-}
-.buttonFromdiv{
-    margin-top: 20px;
+
+.formTitle {
     text-align: center;
-    align-content: center;
-    align-self: center;
+    margin-bottom: 16px;
 }
-.fieldUser{
+
+input, button {
     width: 100%;
     box-sizing: border-box;
-    border: 2px solid #ccc;
+    outline: none;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.fieldUser {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #CCCCCC;
     font-size: 16px;
-    border-radius: 9px;
+    border-radius: 8px;
     background-color: white;
-    background-image: url('../../assets/icons/user.svg');
-    background-position: 10px 10px;
+    background-image: url("../../assets/icons/user.svg");
+    background-position: 10px center;
     background-repeat: no-repeat;
     padding: 12px 20px 12px 40px;
 }
-.fieldemail{
+
+.fieldpassword {
     width: 100%;
     box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 9px;
+    border: 2px solid #CCCCCC;
+    border-radius: 8px;
     font-size: 16px;
     background-color: white;
-    background-image: url('../../assets/icons/email.svg');
-    background-position: 10px 10px;
-    background-repeat: no-repeat;
-    padding: 12px 20px 12px 40px;
-}
-.fieldpassword{
-    width: 100%;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 9px;
-    font-size: 16px;
-    background-color: white;
-    background-image: url('../../assets/icons/password.svg');
-    background-position: 10px 10px;
+    background-image: url("../../assets/icons/password.svg");
+    background-position: 10px center;
     background-repeat: no-repeat;
     padding: 12px 20px 12px 40px;
 
-}
-
-.label{
-    margin-bottom: 25px;
-    color: black;
 }
 
 .buttonFrom {
@@ -79,35 +64,7 @@
     text-align: center;
     font-size: 19px;
     padding: 10px;
-    transition: all 0.5s;
     cursor: pointer;
     height: 20%;
-    box-shadow: 4px 4px 4px hsl(0deg 0% 0% / 0.1);
-    border-radius: 3px;
-    width: 300px;
-}
-
-.buttonFrom span {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-}
-
-.buttonFrom span:after {
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
-}
-
-.buttonFrom:hover span {
-    padding-right: 25px;
-}
-
-.buttonFrom:hover span:after {
-    opacity: 1;
-    right: 0;
+    border-radius: 8px;
 }

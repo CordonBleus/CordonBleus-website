@@ -14,7 +14,6 @@ function LoginPage() {
     return (
         <section className={LoginPageStyle.page}>
             <Header />
-            <br/>
             <LoginForm/>
             <p className={LoginPageStyle.textSinIn}>You don&apos;t have an account? <a className={LoginPageStyle.textSinIn} href={"#"}>Sign Up</a></p>
         </section>
