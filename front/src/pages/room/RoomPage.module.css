@@ -1,6 +1,12 @@
 .page{
     background-color: white;
+    font-family: 'Roboto', sans-serif;
 }
 .title{
     text-align: center;
+}
+
+a {
+    text-decoration: underline;
+    color: #FF7A00;
 }

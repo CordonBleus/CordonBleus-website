@@ -1,0 +1,9 @@
+.info{
+    display: flex;
+    gap: 32px;
+    justify-content: center;
+}
+
+h2 {
+    text-align: center;
+}
