@@ -1,6 +1,6 @@
 import { AppDataSource } from '../data-source.js';
 import { User } from '../entity/User.js';
-import { hashSync } from 'bcryptjs';
+import bcrypt from 'bcryptjs';
 
 /**
  * @type {SeedFunction}
@@ -15,7 +15,7 @@ const seedUsers = async () => {
   const root = repo.create({
     name: 'root',
     email: 'root@example.com',
-    password: hashSync('password', 10),
+    password: bcrypt.hashSync('password', 10),
   });
   await repo.save(root);
 };
