@@ -9,7 +9,8 @@
   "dependencies": {
     "@google-apps/meet": "^0.2.0",
     "@google-cloud/local-auth": "^3.0.1",
-    "bcrypt": "^5.1.1",
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "google-auth-library": "^9.8.0",
@@ -18,7 +19,6 @@
   },
   "devDependencies": {
     "@tsconfig/node20": "^20.1.4",
-    "@types/bcrypt": "^5.0.2",
     "@types/express": "^4.17.21",
     "@types/node": "^16.11.10",
     "ts-node": "10.9.1",

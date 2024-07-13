@@ -1,6 +1,6 @@
 import { AppDataSource } from '../data-source.js';
 import { User } from '../entity/User.js';
-import { hashSync } from 'bcrypt';
+import { hashSync } from 'bcryptjs';
 
 /**
  * @type {SeedFunction}
