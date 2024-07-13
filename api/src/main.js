@@ -3,15 +3,13 @@ import cors from "cors";
 import {AppDataSource} from "./data-source.js";
 import {getSingleRecipe} from "./routes/recipes/single.js";
 import {searchRecipes} from "./routes/recipes/search.js";
-import gMeetRouter from "./routes/gmeet"
-import gLoginRouter from "./routes/google-login"
-import { seedIfNeeded } from "./seed/index"
+import gMeetRouter from "./routes/gmeet.js"
+import gLoginRouter from "./routes/google-login.js"
+import { seedIfNeeded } from "./seed/index.js"
 
 if (!AppDataSource.isInitialized) {
   await AppDataSource.initialize();
 }
-
-
 
 seedIfNeeded();
 

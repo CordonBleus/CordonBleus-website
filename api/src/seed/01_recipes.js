@@ -1,6 +1,5 @@
 import { AppDataSource } from '../data-source.js';
 import { Recipe } from '../entity/Recipe.js';
-import { hashSync } from 'bcrypt';
 import { Ingredient } from '../entity/Ingredient.js';
 
 /**
