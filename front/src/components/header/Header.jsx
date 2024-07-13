@@ -18,7 +18,7 @@ function Header({user}) {
 
     return (
         <header className={styleHeader.header}>
-            <a href="" ><img src={logoHorizontal} className={styleHeader.logoheader}/></a>
+            <a href="/" ><img src={logoHorizontal} className={styleHeader.logoheader} alt={"logo"}/></a>
             <input className={styleHeader.menubtn} type="checkbox" id="menubtn"/>
             <label className={styleHeader.menuIcon} htmlFor="menubtn"><span className={styleHeader.navicon}></span></label>
             <ul className={styleHeader.menu}>
