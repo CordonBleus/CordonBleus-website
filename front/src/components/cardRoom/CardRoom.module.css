@@ -20,6 +20,12 @@
 .joinButoon{
     float: right;
 }
+
+.title{
+    font-size: 125%;
+    font-weight: bold;
+}
+
 @media screen and (max-width: 500px) {
     .card{
         padding-left: 30px;

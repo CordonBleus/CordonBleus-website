@@ -19,7 +19,7 @@ function CardRoom({cardRoomInfo}) {
         <article className={CardRoomStyle.card}>
             <img src={icon} alt="icon"/>
             <div>
-                <p>{cardRoomInfo.title}</p>
+                <p className={CardRoomStyle.title}>{cardRoomInfo.title}</p>
             </div>
             <div className={CardRoomStyle.container}>
                 <p className={CardRoomStyle.inline1}>{cardRoomInfo.description}</p>
