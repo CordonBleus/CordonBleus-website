@@ -6,6 +6,7 @@ import {searchRecipes} from "./routes/recipes/search.js";
 import gMeetRouter from "./routes/gmeet.js"
 import gLoginRouter from "./routes/google-login.js"
 import { seedIfNeeded } from "./seed/index.js"
+import {getAllRecipes} from "./routes/recipes/all.js";
 
 if (!AppDataSource.isInitialized) {
   await AppDataSource.initialize();
@@ -17,7 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(cors())
 
-app.get('/api/recipes', displayAllRecipes);
+app.get('/api/recipes', getAllRecipes);
 app.get('/api/recipes/search', searchRecipes);
 app.get('/api/recipes/:id', getSingleRecipe);
 
