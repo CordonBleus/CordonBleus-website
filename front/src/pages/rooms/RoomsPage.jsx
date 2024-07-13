@@ -62,9 +62,9 @@ function RoomsPage({room}) {
   return (
         <section className={RoomsPageStyle.page}>
             <Header />
-                <h1 className={RoomsPageStyle.title}>Rooms</h1>
-            <ListOfRoomCards rooms={rooms} />
+            <h1 className={RoomsPageStyle.title}>Rooms</h1>
             <Button text={"Create Room"} onClick={handleClick}/>
+            <ListOfRoomCards rooms={rooms} />
         </section>
     );
 }
