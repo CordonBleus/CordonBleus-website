@@ -9,6 +9,6 @@ export class GLoginController {
 
   static async callback(req, res) {
     const token = await setGoogleToken(req.query)
-    res.redirect(`http://localhost:5173/?token=${btoa(token.refresh_token)}`)
+    res.redirect(`http://localhost:5173/room-list?token=${btoa(token.refresh_token)}`)
   }
 }
