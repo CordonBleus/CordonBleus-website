@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import LoginFormStyle from "./LoginForm.module.css";
+import styles from "./LoginForm.module.css";
+import {cls} from "../../utils/cls.js";
 
 function LoginForm() {
     const navigate = useNavigate();
@@ -32,17 +33,17 @@ function LoginForm() {
     };
 
     return (
-        <div className={LoginFormStyle.section}>
-            <h3 className={LoginFormStyle.formTitle}>Welcome back!</h3>
+        <div className={styles.section}>
+            <h3 className={styles.formTitle}>Welcome back!</h3>
             <form
                 onSubmit={handleSubmit}
-                className={LoginFormStyle.form}>
+                className={styles.form}>
                 <input
                     type="text"
                     id="username"
                     name="username"
                     value={username}
-                    className={LoginFormStyle.fieldUser}
+                    className={cls(styles.fieldUser, styles.formField)}
                     placeholder={"Username"}
                     onChange={(e) => setUsername(e.target.value)}
                     required
@@ -53,12 +54,12 @@ function LoginForm() {
                     name="password"
                     value={password}
                     placeholder="Password"
-                    className={LoginFormStyle.fieldpassword}
+                    className={cls(styles.fieldPassword, styles.formField)}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                 />
                 <button
-                    className={LoginFormStyle.buttonFrom}
+                    className={styles.buttonFrom}
                     type="submit">Log in
                 </button>
             </form>

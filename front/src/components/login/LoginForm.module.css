@@ -29,31 +29,24 @@ input, button {
     gap: 8px;
 }
 
-.fieldUser {
+.formField {
     width: 100%;
     box-sizing: border-box;
     border: 2px solid #CCCCCC;
     font-size: 16px;
     border-radius: 8px;
     background-color: white;
-    background-image: url("../../assets/icons/user.svg");
     background-position: 10px center;
     background-repeat: no-repeat;
     padding: 12px 20px 12px 40px;
 }
 
-.fieldpassword {
-    width: 100%;
-    box-sizing: border-box;
-    border: 2px solid #CCCCCC;
-    border-radius: 8px;
-    font-size: 16px;
-    background-color: white;
-    background-image: url("../../assets/icons/password.svg");
-    background-position: 10px center;
-    background-repeat: no-repeat;
-    padding: 12px 20px 12px 40px;
+.fieldUser {
+    background-image: url("../../assets/icons/user.svg");
+}
 
+.fieldPassword {
+    background-image: url("../../assets/icons/password.svg");
 }
 
 .buttonFrom {
