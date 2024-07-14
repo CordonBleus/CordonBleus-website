@@ -22,7 +22,6 @@ function RoomsPage() {
     const token = url.searchParams.get('token')
     if (token) {
       localStorage.setItem('googleToken', atob(token))
-      //createRoom() // Or redirect to the room creation page
       setShowModal(true)
     }
 
@@ -33,35 +32,8 @@ function RoomsPage() {
     if (!googleToken) {
       location = import.meta.env.VITE_API_URI + '/api/google/login'
     } else {
-      // await createRoom()
       setShowModal(true)
     }
-  }
-
-  const createRoom = async () => {
-    const response = await fetch(import.meta.env.VITE_API_URI + '/api/meet', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        type: 'authorized_user',
-        refresh_token: localStorage.getItem('googleToken'),
-        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-        client_secret: import.meta.env.VITE_GOOGLE_CLIENT_SECRET
-      })
-    })
-    const result = await response.json()
-    console.log(result)
-
-    rooms.push({
-      id: result.roomName.substring(result.roomName.indexOf('/') + 1, result.roomName.length),
-      meetingUrl: result.meetingUri,
-      title: "Lorem Ipsum Title",
-      description: "Lorem Ipsum Dolor Sit Amet Description",
-      time: "60 min"
-    })
-    setRooms([...rooms])
   }
 
   return (
@@ -72,7 +44,6 @@ function RoomsPage() {
             <ListOfRoomCards rooms={rooms} />
             {showModal && <CreateRoomModal onClose={async () => {
               setShowModal(false)
-              await createRoom()
             }} />}
         </section>
     );

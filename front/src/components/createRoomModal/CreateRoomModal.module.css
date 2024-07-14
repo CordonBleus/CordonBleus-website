@@ -34,3 +34,8 @@ select {
 option {
     font-size: 16px;
 }
+
+.btnContainer {
+    display: flex;
+    justify-content: space-between;
+}
