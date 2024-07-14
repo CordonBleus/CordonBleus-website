@@ -6,10 +6,9 @@ import Button from "../../components/button/button.jsx";
 
 /**
  * Login Page
- * @returns {Element}
- * @constructor
+ * @type {React.FC}
  */
-function RoomsPage() {
+export const RoomsPage = () => {
   const [rooms, setRooms] = useState([])
 
   useEffect(() => {
@@ -66,5 +65,3 @@ function RoomsPage() {
         </section>
     );
 }
-
-export default RoomsPage;
