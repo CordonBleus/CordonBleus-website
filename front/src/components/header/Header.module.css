@@ -13,10 +13,10 @@ a {
 .header {
     background-color: #FFFFFF;
     box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .1);
-    width: 100%;
     display: flex;
     align-items: center;
     margin-bottom: 16px;
+    padding-right: 8px;
 }
 
 @media (min-width: 768px) {
