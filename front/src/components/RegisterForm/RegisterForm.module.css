@@ -49,6 +49,10 @@ input, button {
     background-image: url("../../assets/icons/password.svg");
 }
 
+.fieldEmail {
+    background-image: url("../../assets/icons/email.svg");
+}
+
 .buttonFrom {
     display: inline-block;
     background-color: #FF7A00;

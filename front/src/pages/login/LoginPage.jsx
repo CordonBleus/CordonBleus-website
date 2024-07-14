@@ -1,9 +1,7 @@
-import React from "react";
 import LoginForm from "../../components/login/LoginForm.jsx";
 import Header from "../../components/header/Header.jsx";
 import LoginPageStyle from "./LoginPage.module.css";
-import Help from "../../components/help/Help.jsx";
-import helpicon from "../../assets/icons/HelpIcon.svg";
+import {Link} from "react-router-dom";
 
 /**
  * Login Page
@@ -14,9 +12,8 @@ function LoginPage() {
     return (
         <section className={LoginPageStyle.page}>
             <Header />
-            <br/>
             <LoginForm/>
-            <p className={LoginPageStyle.textSinIn}>You don&apos;t have an account? <a className={LoginPageStyle.textSinIn} href={"#"}>Sign Up</a></p>
+            <p className={LoginPageStyle.textSinIn}>You don&apos;t have an account? <Link className={LoginPageStyle.textSinIn} to="/register">Sign Up</Link></p>
         </section>
     );
 }

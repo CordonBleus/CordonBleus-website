@@ -1,19 +1,12 @@
 import React, {useEffect, useState} from "react";
 import Header from "../../components/header/Header.jsx";
 import RoomsPageStyle from "./RoomsPage.module.css";
-import CardRoom from "../../components/cardRoom/CardRoom.jsx";
 import ListOfRoomCards from "../../components/listOfRoomCards/ListOfRoomCards.jsx";
 import Button from "../../components/button/button.jsx";
 import {useNavigate} from "react-router-dom";
 import CreateRoomModal from "../../components/createRoomModal/CreateRoomModal.jsx";
 
-
-/**
- * Rooms Page
- * @returns {Element}
- * @constructor
- */
-function RoomsPage() {
+export const RoomsPage = () => {
   const [rooms, setRooms] = useState([])
   const [showModal, setShowModal] = useState(false)
 
@@ -48,5 +41,3 @@ function RoomsPage() {
         </section>
     );
 }
-
-export default RoomsPage;
