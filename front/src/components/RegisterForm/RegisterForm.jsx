@@ -1,4 +1,4 @@
-import {useReducer, useState} from "react";
+import {useEffect, useReducer, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import styles from "./RegisterForm.module.css";
 import {cls} from "../../utils/cls.js";
@@ -14,11 +14,27 @@ function formStateReducer(prev, action) {
                 ...prev,
                 username: action.payload,
             };
+        case "email":
+            return {
+                ...prev,
+                email: action.payload,
+            };
+        case "password":
+            return {
+                ...prev,
+                password: action.payload,
+            };
+        case "verifyPassword":
+            return {
+                ...prev,
+                verifyPassword: action.payload,
+            };
     }
 }
 
 function RegisterForm() {
     const navigate = useNavigate();
+    const [lastError, updateLastError] = useState("");
     const [formState, updateForm] = useReducer(
         formStateReducer,
         {
@@ -28,12 +44,40 @@ function RegisterForm() {
             verifyPassword: "",
         });
 
+    useEffect(() => {
+            if (localStorage.getItem("username")) navigate("/room-list");
+            return () => {
+            };
+        },
+        [navigate]);
+
+    async function handleSubmit(evt) {
+        evt.preventDefault();
+        try {
+            const response = await fetch(`/api/register`, {
+                method: "POST",
+                headers: [["Content-Type", "application/json"]],
+                body: JSON.stringify(formState),
+            });
+            if (!response.ok) {
+                const reponseData = await response.json();
+                updateLastError(reponseData["error"]);
+            } else {
+                updateLastError("");
+                navigate("/login");
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     return (
         <div className={styles.section}>
             <h3 className={styles.formTitle}>Welcome back!</h3>
             <form
-                // onSubmit={handleSubmit}
+                onSubmit={handleSubmit}
                 className={styles.form}>
+                {lastError && <p className={styles.lastError}>Error: {lastError}</p>}
                 <input
                     type="text"
                     name="username"
@@ -67,14 +111,15 @@ function RegisterForm() {
                 <input
                     type="password"
                     name="password"
-                    value={formState.password}
+                    value={formState.verifyPassword}
                     className={cls(styles.fieldPassword, styles.formField)}
                     placeholder="Check password"
-                    onChange={(e) => updateForm({type: "password", payload: e.target.value})}
+                    onChange={(e) => updateForm({type: "verifyPassword", payload: e.target.value})}
                     required
                     minLength={8}
                 />
                 <button
+                    disabled={formState.password !== formState.verifyPassword}
                     className={styles.buttonFrom}
                     type="submit">Log in
                 </button>
