@@ -1,0 +1,67 @@
+.section {
+    display: flex;
+    flex-direction: column;
+    width: calc(100% - 64px - 128px);
+    background-color: white;
+    border-radius: 16px;
+    padding: 32px 64px;
+    margin: 64px auto 16px;
+    color: black;
+    max-width: 500px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+
+.formTitle {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+input, button {
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.formField {
+    width: 100%;
+    box-sizing: border-box;
+    border: 2px solid #CCCCCC;
+    font-size: 16px;
+    border-radius: 8px;
+    background-color: white;
+    background-position: 10px center;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 40px;
+}
+
+.fieldUser {
+    background-image: url("../../assets/icons/user.svg");
+}
+
+.fieldPassword {
+    background-image: url("../../assets/icons/password.svg");
+}
+
+.fieldEmail {
+    background-image: url("../../assets/icons/email.svg");
+}
+
+.buttonFrom {
+    display: inline-block;
+    background-color: #FF7A00;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 19px;
+    padding: 10px;
+    cursor: pointer;
+    height: 20%;
+    border-radius: 8px;
+}

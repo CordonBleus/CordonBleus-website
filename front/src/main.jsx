@@ -4,12 +4,17 @@ import React from "react";
 import {createBrowserRouter, RouterProvider, useParams} from "react-router-dom";
 import Room from "./pages/room/RoomPage.jsx";
 import LoginPage from "./pages/login/LoginPage.jsx";
-import RoomsPage from "./pages/rooms/RoomsPage.jsx";
+import {RoomsPage} from "./pages/rooms/RoomsPage.jsx";
+import {RegisterPage} from "./pages/register/RegisterPage.jsx";
 
 const router = createBrowserRouter([
     {
         path: "/",
         element: <Login/>,
+    },
+    {
+        path: "/register",
+        Component: RegisterPage,
     },
     {
         path: "/room-list",
