@@ -57,9 +57,9 @@ app.post('/user', (req, res) => {
   const data = req.body;
   users.set("8f289a73-cf73-4931-ab93-84f65e3462b4",
     {
-      email: "gotaga.gros+caca@gmail.com",
-      username: "ZroGizi",
-      password: "ZroGizi",
+      email: "random.mail@gmail.com",
+      username: "sampleUsername",
+      password: "samplePassword",
       room: "random"
     }
   )
