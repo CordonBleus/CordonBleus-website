@@ -27,7 +27,7 @@ function CardRoom({cardRoomInfo}) {
             </div>
             <div className={CardRoomStyle.container}>
                 <div className={CardRoomStyle.inline1}>
-                    <Timer time={cardRoomInfo.time}/>
+                    <Timer time={cardRoomInfo.recipe.prepTime + cardRoomInfo.recipe.cookingTime}/>
                 </div>
                 <Button className={CardRoomStyle.joinButoon} onClick={handleClick}  text={"Join"} />
             </div>
@@ -40,7 +40,8 @@ CardRoom.propTypes = {
         id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
-        time: PropTypes.string.isRequired
+        recipe: PropTypes.object.isRequired,
+        // time: PropTypes.string.isRequired
     })
 };
 
