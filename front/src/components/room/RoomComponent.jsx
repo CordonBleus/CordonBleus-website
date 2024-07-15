@@ -10,6 +10,7 @@ function RoomComponent({meetingUrl, recipe}) {
                 <p>Participants : {"N"}</p>
                 <p><a href={meetingUrl} target="_blank">Video meet</a></p>
               </div>
+                    <p>Hôte : <b>{host}</b></p>
                 <h2>Ingrédients</h2>
                 <ul>
                     {recipe.ingredients.map((ingredient) => (

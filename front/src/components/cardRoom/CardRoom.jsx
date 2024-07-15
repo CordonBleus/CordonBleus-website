@@ -19,7 +19,10 @@ function CardRoom({cardRoomInfo}) {
                 <p className={CardRoomStyle.title}>{cardRoomInfo.recipe.name}</p>
             </div>
             <div className={CardRoomStyle.container}>
-                <p className={CardRoomStyle.inline1}>{"Lorem Ipsum Dolor Sit amet"}</p>
+                <div>
+                    <p>Hôte: <b>{cardRoomInfo.host}</b></p>
+                    <p>{"Lorem Ipsum Dolor Sit amet"}</p>
+                </div>
                 <img className={CardRoomStyle.thumbnail} src={cardRoomInfo.recipe.imageUrl} alt="pizza"/>
             </div>
             <div className={CardRoomStyle.container}>
@@ -38,7 +41,7 @@ CardRoom.propTypes = {
         title: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
         recipe: PropTypes.object.isRequired,
-        // time: PropTypes.string.isRequired
+        host: PropTypes.string.isRequired,
     })
 };
 

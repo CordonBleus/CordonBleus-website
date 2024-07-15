@@ -3,10 +3,12 @@ import { AppDataSource } from "../../data-source.js";
 import { Recipe } from "../../entity/Recipe.js";
 
 const socketReceive = (io, socket, users, roomExist, getRoomUserList, rooms) => {
-  const joinRoom = (user, roomName, roomDescription, recipe, meetingLink) => {
+  const joinRoom = (user, roomName, roomDescription, recipe, meetingLink, host) => {
     try {
     } catch (error) {
       console.log(error)
+
+
     }
     user.room = roomName
     if (!roomExist(roomName)){
@@ -16,6 +18,7 @@ const socketReceive = (io, socket, users, roomExist, getRoomUserList, rooms) => 
         recipe: recipe,
         description: roomDescription,
         meetingUrl: meetingLink,
+        host: host,
       })
       roomList(io, rooms)
     }
@@ -35,7 +38,7 @@ const socketReceive = (io, socket, users, roomExist, getRoomUserList, rooms) => 
     users.set(socket.id, user)
   }
 
-  socket.on("room:join", async ({userUuid, roomName, roomDescription, recipeId, meetingLink}) => {
+  socket.on("room:join", async ({userUuid, roomName, roomDescription, recipeId, meetingLink, host}) => {
     const user = users.get(userUuid)
     const roomUserList = getRoomUserList(roomName)
     const recipeRepo = AppDataSource.getRepository(Recipe);
@@ -43,7 +46,7 @@ const socketReceive = (io, socket, users, roomExist, getRoomUserList, rooms) => 
     if (!recipe) {
       return raiseError(io, roomName, "This recipe does not exist !")
     }
-    joinRoom(user, roomName, roomDescription, recipe, meetingLink)
+    joinRoom(user, roomName, roomDescription, recipe, meetingLink, host)
     roomJoined(io, user, roomName, roomUserList)
   });
 

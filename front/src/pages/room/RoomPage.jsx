@@ -9,13 +9,14 @@ function Room() {
     const location = useLocation()
     const meetingUrl = location.state.roomInfo.meetingUrl
     const recipe = location.state.roomInfo.recipe
+    const host = location.state.roomInfo.host
     const navigate = useNavigate()
 
     return (
         <section className={RoomPageStyle.page}>
             <Header />
             <h1 className={RoomPageStyle.title}>{recipe.name}</h1>
-            <RoomComponent meetingUrl={meetingUrl} recipe={recipe}/>
+            <RoomComponent meetingUrl={meetingUrl} recipe={recipe} host={host}/>
             <Button text={"Back"} onClick={() => navigate('/room-list')}/>
         </section>
     );
