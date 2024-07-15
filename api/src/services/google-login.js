@@ -2,7 +2,7 @@ import {OAuth2Client} from 'google-auth-library'
 // import http from 'http'
 // import url from 'url'
 // Download your OAuth2 configuration from the Google
-import keys from '../../data/credentials.json'
+import keys from '../../data/credentials.json' with {type: "json"}
 
 /**
  * Start by acquiring a pre-authenticated oAuth2 client.

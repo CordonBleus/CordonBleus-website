@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite dev --host",
-    "build": "vite build"
+    "dev": "nodemon src/main.js"
   },
   "dependencies": {
     "@google-apps/meet": "^0.2.0",
@@ -22,9 +21,6 @@
     "@tsconfig/node20": "^20.1.4",
     "@types/express": "^4.17.21",
     "@types/node": "^16.11.10",
-    "ts-node": "10.9.1",
-    "typescript": "4.5.2",
-    "vite": "^5.2.9",
-    "vite-plugin-node": "^3.1.0"
+    "nodemon": "^3.1.4"
   }
 }

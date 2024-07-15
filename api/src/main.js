@@ -1,5 +1,7 @@
+import { createServer } from "node:http";
 import express from "express";
 import cors from "cors";
+import { Server } from "socket.io";
 import { AppDataSource } from "./data-source.js";
 import { getSingleRecipe } from "./routes/recipes/single.js";
 import { searchRecipes } from "./routes/recipes/search.js";
@@ -41,17 +43,7 @@ app.get("/", (_, res) => {
     res.send("Welcome to the API!");
 });
 
-if (import.meta.env.PROD) {
-  app.listen(3000, () => {
-    console.log("API ready !");
-  });
-}
-
-// ---------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-// ---------------------------------------------------------------------------------------------------------------------
-
-const httpServer = createServer();
+const httpServer = createServer(app);
 const io = new Server(httpServer, {
   cors: {
     origin: "*",
@@ -108,7 +100,4 @@ io.on("connection", (socket) => {
   onConnection(socket)
 })
 
-io.listen(3001);
-
-// noinspection JSUnusedGlobalSymbols (Used by Vite)
-export const viteNodeApp = app;
+httpServer.listen(3000);
