@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import styles from "./LoginForm.module.css";
 import {cls} from "../../utils/cls.js";
@@ -7,6 +7,13 @@ function LoginForm() {
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+
+    useEffect(() => {
+            if (localStorage.getItem("username")) navigate("/room-list");
+            return () => {
+            };
+        },
+        [navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,8 +30,9 @@ function LoginForm() {
                 return;
             }
 
-            console.log(response);
-            // Do stuff with response...
+            const responseData = await response.json();
+
+            localStorage.setItem("username", responseData["username"]);
 
             navigate("/room-list");
         } catch (error) {

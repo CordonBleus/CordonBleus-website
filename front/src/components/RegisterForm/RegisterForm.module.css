@@ -25,7 +25,6 @@ input, button {
 .form {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
     gap: 8px;
 }
 
@@ -64,4 +63,13 @@ input, button {
     cursor: pointer;
     height: 20%;
     border-radius: 8px;
+}
+
+.buttonFrom:disabled {
+    cursor: not-allowed;
+    background-color: #9B9B9B;
+}
+
+.lastError {
+    color: red;
 }
