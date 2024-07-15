@@ -121,7 +121,7 @@ function RegisterForm() {
                 <button
                     disabled={formState.password !== formState.verifyPassword}
                     className={styles.buttonFrom}
-                    type="submit">Log in
+                    type="submit">Register
                 </button>
             </form>
         </div>
