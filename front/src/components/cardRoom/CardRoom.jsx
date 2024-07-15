@@ -1,3 +1,5 @@
+// eslint-disable-next-line no-unused-vars
+import React from "react";
 import CardRoomStyle from "./CardRoom.module.css"
 import icon from "../../assets/icons/fourchette.svg"
 import pizza from "../../assets/food/pizza.png"
@@ -25,7 +27,7 @@ function CardRoom({cardRoomInfo}) {
             </div>
             <div className={CardRoomStyle.container}>
                 <div className={CardRoomStyle.inline1}>
-                    <Timer time={cardRoomInfo.recipe.time}/>
+                    <Timer time={cardRoomInfo.recipe.prepTime + cardRoomInfo.recipe.cookingTime}/>
                 </div>
                 <Button className={CardRoomStyle.joinButoon} onClick={handleClick}  text={"Join"} />
             </div>
@@ -36,8 +38,10 @@ function CardRoom({cardRoomInfo}) {
 CardRoom.propTypes = {
     cardRoomInfo: PropTypes.shape({
         id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
         recipe: PropTypes.object.isRequired,
-        meetingUrl: PropTypes.string.isRequired
+        // time: PropTypes.string.isRequired
     })
 };
 
