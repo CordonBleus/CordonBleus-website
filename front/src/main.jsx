@@ -1,7 +1,7 @@
 import {createRoot} from "react-dom/client";
 import "./index.css";
 import React from "react";
-import {createBrowserRouter, RouterProvider, useParams} from "react-router-dom";
+import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Room from "./pages/room/RoomPage.jsx";
 import LoginPage from "./pages/login/LoginPage.jsx";
 import {RoomsPage} from "./pages/rooms/RoomsPage.jsx";
@@ -10,7 +10,7 @@ import {RegisterPage} from "./pages/register/RegisterPage.jsx";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <Login/>,
+        element: <LoginPage/>,
     },
     {
         path: "/register",
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     },
     {
         path: "/room/:roomName",
-        element: <RoomPage/>,
+        element: <Room/>,
     },
 ]);
 
@@ -32,14 +32,3 @@ createRoot(document.getElementById("root"))
             <RouterProvider router={router}/>
         </React.StrictMode>,
     );
-
-function Login() {
-    return <LoginPage/>;
-}
-
-function RoomPage() {
-    // Extract roomName from URL params
-    let {roomName} = useParams();
-    // let roomName="Pizza"
-    return <Room roomName={roomName}/>;
-}
