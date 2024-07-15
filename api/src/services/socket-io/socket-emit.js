@@ -1,6 +1,7 @@
-export const roomList = (io, roomName, user) => {
-  io.to(roomName).emit('rooms', {joiningUser: user.username})
+export const roomList = (io, rooms) => {
+  io.emit('rooms', {rooms: rooms})
 }
+
 export const roomJoined = (io, user, roomName, roomUserList) => {
   io.to(roomName).emit('room:joined', {joiningUser: user.username, roomUserList, userCount: roomUserList.length});
 }

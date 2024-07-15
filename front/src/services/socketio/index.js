@@ -22,12 +22,12 @@ export const joinRoom = (socket, userUuid, roomName, roomDescription, recipeId, 
 }
 
 export const onJoinedRoom = (socket, listener) => {
-  socket.on("room-joined", listener)
-  socket.on("room-left", listener)
+  socket.on("room:joined", listener)
+  socket.on("room:left", listener)
 
   return () => {
-    socket.off("room-left", listener)
-    socket.off('room-joined', listener)
+    socket.off("room:left", listener)
+    socket.off('room:joined', listener)
   }
 }
 

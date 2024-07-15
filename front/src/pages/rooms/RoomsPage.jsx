@@ -3,7 +3,7 @@ import Header from "../../components/header/Header.jsx";
 import RoomsPageStyle from "./RoomsPage.module.css";
 import ListOfRoomCards from "../../components/listOfRoomCards/ListOfRoomCards.jsx";
 import Button from "../../components/button/button.jsx";
-import {connectWS, disconnectWS, joinRoom} from "../../services/socketio/index.js";
+import {connectWS, disconnectWS, onSetRooms} from "../../services/socketio/index.js";
 import CreateRoomModal from "../../components/createRoomModal/CreateRoomModal.jsx";
 
 export const RoomsPage = () => {
@@ -22,6 +22,10 @@ export const RoomsPage = () => {
     //   setRooms(args.rooms)
     // })
 
+    const onSetRoomsCleanUp = onSetRooms(socket.current, (args) => {
+      setRooms(args.rooms)
+    })
+
     const url = new URL(window.location.href);
     const token = url.searchParams.get("token");
     if (token) {
@@ -31,7 +35,7 @@ export const RoomsPage = () => {
 
     return () => {
       // onroomJOINcleanup()
-      // onSetRoomsCleanUp()
+      onSetRoomsCleanUp()
       disconnectWS(socket.current);
       socket.current = null;
     };
@@ -62,6 +66,7 @@ export const RoomsPage = () => {
       },
     });
     const json_response = await response.json();
+    console.log("Fetching rooms", json_response.rooms)
     setRooms(json_response.rooms);
   };
 
@@ -88,7 +93,6 @@ export const RoomsPage = () => {
         socket={socket}
         onClose={async () => {
           setShowModal(false);
-          await fetchRooms();
         }}/>}
     </section>
   );

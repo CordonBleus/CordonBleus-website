@@ -46,7 +46,7 @@ function CreateRoomModal({socket, onClose}) {
     joinRoom(
       socket.current,
       userUuid,
-      "roomName",
+      result.roomName,
       "roomDescription",
       selectedRecipe.id,
       result.meetingUri,
