@@ -1,22 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import Header from "../../components/header/Header.jsx";
 import RoomsPageStyle from "./RoomsPage.module.css";
 import ListOfRoomCards from "../../components/listOfRoomCards/ListOfRoomCards.jsx";
 import Button from "../../components/button/button.jsx";
-import { useNavigate } from "react-router-dom";
-import { connectWS, disconnectWS, joinRoom } from "../../services/socketio/index.js";
+import {connectWS, disconnectWS, joinRoom} from "../../services/socketio/index.js";
 import CreateRoomModal from "../../components/createRoomModal/CreateRoomModal.jsx";
 
 export const RoomsPage = () => {
-  const [rooms, setRooms] = useState([])
-  const [showModal, setShowModal] = useState(false)
+  const [rooms, setRooms] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   const socket = useRef(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    socket.current = connectWS()
-    fetchRooms()
-    fakeLogin()
+    socket.current = connectWS();
+    fetchRooms();
+    fakeLogin();
     // const onroomJOINCleanUp = onJoinedRoom(socket.current, (args) => {
     //   setRooms(args.roomUserList)
     // })
@@ -24,19 +22,19 @@ export const RoomsPage = () => {
     //   setRooms(args.rooms)
     // })
 
-    const url = new URL(window.location.href)
-    const token = url.searchParams.get('token')
+    const url = new URL(window.location.href);
+    const token = url.searchParams.get("token");
     if (token) {
-      localStorage.setItem('googleToken', atob(token))
-      setShowModal(true)
+      localStorage.setItem("googleToken", atob(token));
+      setShowModal(true);
     }
 
     return () => {
       // onroomJOINcleanup()
       // onSetRoomsCleanUp()
-      disconnectWS(socket.current)
-      socket.current = null
-    }
+      disconnectWS(socket.current);
+      socket.current = null;
+    };
   }, []);
 
   const fakeLogin = async () => {
@@ -49,57 +47,66 @@ export const RoomsPage = () => {
         "email": "gotaga.gros+caca@gmail.com",
         "username": "ZroGizi",
         "password": "ZroGizi",
-        "room": "random"
-      })
-    })
+        "room": "random",
+      }),
+    });
     const json_response = await response.json();
-    localStorage.setItem('userUuid', json_response.uuid);
-  }
+    localStorage.setItem("userUuid", json_response.uuid);
+  };
 
   const fetchRooms = async () => {
     const response = await fetch(import.meta.env.VITE_API_URI + "/rooms", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-      }
-    })
+      },
+    });
     const json_response = await response.json();
-    setRooms(json_response.rooms)
-  }
+    setRooms(json_response.rooms);
+  };
 
   const handleClick = async () => {
-    const googleToken = localStorage.getItem('googleToken')
+    const googleToken = localStorage.getItem("googleToken");
     if (!googleToken) {
-      location = import.meta.env.VITE_API_URI + '/api/google/login'
+      location = import.meta.env.VITE_API_URI + "/api/google/login";
     } else {
-      setShowModal(true)
+      setShowModal(true);
     }
-  }
+  };
 
   const createRoom2 = async (roomName, roomDescription) => {
     if (socket.current == null) return;
-    const userUuid = localStorage.getItem("userUuid")
+    const userUuid = localStorage.getItem("userUuid");
     joinRoom(
       socket.current,
       userUuid,
       roomName,
       roomDescription,
       "1",
-      'https://meet.google.com/new'
-    )
-    // navigate(`/room/${roomName}`)
+      "https://meet.google.com/new",
+    );
+    location.reload();
   };
 
   return (
     <section className={RoomsPageStyle.page}>
-      <Header />
+      <Header/>
       <h1 className={RoomsPageStyle.title}>Rooms</h1>
-      <Button text={"Create Room"} onClick={async () => {await handleClick()}}/>
-      <Button text={"Create Room 2"} onClick={async () => {await createRoom2("La room du super tajin trop stylé", "roomDescription")}}/>
-      <ListOfRoomCards rooms={rooms} />
-      {showModal && <CreateRoomModal onClose={async () => {
-        setShowModal(false)
-      }} />}
+      <Button
+        text={"Create Room"}
+        onClick={async () => {
+          await handleClick();
+        }}/>
+      <Button
+        text={"Create Room 2"}
+        onClick={async () => {
+          await createRoom2("La room du super tajin trop stylé", "roomDescription");
+        }}/>
+      <ListOfRoomCards rooms={rooms}/>
+      {showModal && <CreateRoomModal
+        onClose={async () => {
+          setShowModal(false);
+        }}/>}
     </section>
   );
-}
+};
