@@ -48,9 +48,9 @@ export const RoomsPage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        "email": "gotaga.gros+caca@gmail.com",
-        "username": "ZroGizi",
-        "password": "ZroGizi",
+        "email": "random.mail@gmail.com",
+        "username": "sampleUsername",
+        "password": "samplePassword",
         "room": "random",
       }),
     });

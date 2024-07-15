@@ -50,6 +50,7 @@ function CreateRoomModal({socket, onClose}) {
       "roomDescription",
       selectedRecipe.id,
       result.meetingUri,
+      localStorage.getItem('username')
     );
 
     onClose()

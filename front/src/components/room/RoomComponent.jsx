@@ -1,15 +1,19 @@
 import PropTypes from "prop-types";
 import RoomComponentStyle from "./RoomComponent.module.css"
+import Button from "../button/button.jsx";
 
-function RoomComponent({meetingUrl, recipe}) {
+function RoomComponent({meetingUrl, recipe, host}) {
     return (
         <div>
             <img src={recipe.imageUrl} className={RoomComponentStyle.recipeThumbnail}/>
             <div className={RoomComponentStyle.container}>
-              <div className={RoomComponentStyle.info}>
-                <p>Participants : {"N"}</p>
-                <p><a href={meetingUrl} target="_blank">Video meet</a></p>
-              </div>
+                <div className={RoomComponentStyle.info}>
+                    <p>Participants : {"N"}</p>
+                    <p>Hôte : <b>{host}</b></p>
+                </div>
+                <div className={RoomComponentStyle.linkContainer}>
+                    <Button text={"Access the meeting"} onClick={() => window.open(meetingUrl, "_blank")}/>
+                </div>
                 <h2>Ingrédients</h2>
                 <ul>
                     {recipe.ingredients.map((ingredient) => (
@@ -29,7 +33,8 @@ function RoomComponent({meetingUrl, recipe}) {
 
 RoomComponent.propTypes = {
     meetingUrl: PropTypes.string,
-    recipe: PropTypes.object
+    recipe: PropTypes.object,
+    host: PropTypes.string
 }
 
 export default RoomComponent;
