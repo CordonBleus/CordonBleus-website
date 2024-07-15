@@ -66,7 +66,6 @@ export const RoomsPage = () => {
       },
     });
     const json_response = await response.json();
-    console.log("Fetching rooms", json_response.rooms)
     setRooms(json_response.rooms);
   };
 
