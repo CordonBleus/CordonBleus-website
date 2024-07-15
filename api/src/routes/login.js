@@ -21,7 +21,7 @@ export const loginUser = async (req, res) => {
     }
 
     if (bcrypt.compareSync(password, potentialUser.password)) {
-        return res.status(200).json({});
+        return res.status(200).json({username: potentialUser.name});
     }
 
     res.status(500).json({body: req.body, user: potentialUser});

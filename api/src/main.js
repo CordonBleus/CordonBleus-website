@@ -8,6 +8,7 @@ import gLoginRouter from "./routes/google-login.js"
 import { seedIfNeeded } from "./seed/index.js"
 import {getAllRecipes } from "./routes/recipes/all.js";
 import {loginUser} from "./routes/login.js";
+import {registerUser} from "./routes/register.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import socketReceiveHandler from "./services/socket-io/socket-receive.js"
@@ -31,6 +32,7 @@ app.get("/api/recipes", getAllRecipes);
 app.get("/api/recipes/search", searchRecipes);
 app.get("/api/recipes/:id", getSingleRecipe);
 app.post("/api/login", loginUser);
+app.post("/api/register", registerUser);
 
 app.use("/api/meet", gMeetRouter);
 app.use("/api/google", gLoginRouter);
