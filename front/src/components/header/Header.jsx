@@ -5,7 +5,7 @@ import Button from "../button/button.jsx";
 function Header() {
 
     const logOut = () => {
-        localStorage.removeItem("googleToken");
+        localStorage.removeItem("username");
         window.location.href = "/";
     };
 
@@ -18,7 +18,7 @@ function Header() {
                     alt={"logo"}/>
             </a>
             <Button
-                text={localStorage.getItem("googleToken") != null ? "Log Out" : "Log In"}
+                text={localStorage.getItem("username") != null ? "Log Out" : "Log In"}
                 onClick={logOut}/>
         </header>
     );
