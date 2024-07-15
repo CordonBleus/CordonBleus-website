@@ -16,9 +16,7 @@ function ListOfRoomCards({rooms}) {
 ListOfRoomCards.propTypes = {
     rooms: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        time: PropTypes.string.isRequired,
+        recipe: PropTypes.object.isRequired,
         meetingUrl: PropTypes.string.isRequired
     }))
 };
