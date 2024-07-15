@@ -4,7 +4,7 @@ import RoomComponentStyle from "./RoomComponent.module.css"
 function RoomComponent({meetingUrl, recipe}) {
     return (
         <div>
-            <img src={recipe.imageUrl}/>
+            <img src={recipe.imageUrl} className={RoomComponentStyle.recipeThumbnail}/>
             <div className={RoomComponentStyle.container}>
               <div className={RoomComponentStyle.info}>
                 <p>Participants : {"N"}</p>

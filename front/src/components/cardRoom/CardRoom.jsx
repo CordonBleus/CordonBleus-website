@@ -1,6 +1,5 @@
 import CardRoomStyle from "./CardRoom.module.css"
 import icon from "../../assets/icons/fourchette.svg"
-import pizza from "../../assets/food/pizza.png"
 import Timer from "../timer/Timer.jsx";
 import Button from "../button/button.jsx";
 import {useNavigate} from "react-router-dom";
