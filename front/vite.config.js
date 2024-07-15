@@ -7,6 +7,10 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': 'http://api:3000/',
+      "/socket.io": {
+        ws: true,
+        target: 'http://api:3000/'
+      }
     },
   },
 });
