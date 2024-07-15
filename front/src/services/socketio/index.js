@@ -17,8 +17,8 @@ export const disconnectWS = (socket) => {
   return socket.close()
 }
 
-export const joinRoom = (socket, roomName, meetingLink) => {
-  socket.emit('join-room', {roomName, meetingLink})
+export const joinRoom = (socket, userUuid, roomName, roomDescription, recipeId, meetingLink) => {
+  socket.emit('room:join', {userUuid, roomName, roomDescription, recipeId, meetingLink})
 }
 
 export const onJoinedRoom = (socket, listener) => {
