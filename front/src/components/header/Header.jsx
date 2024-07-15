@@ -6,6 +6,8 @@ function Header() {
 
     const logOut = () => {
         localStorage.removeItem("username");
+        localStorage.removeItem("userUuid");
+        localStorage.removeItem("googleToken");
         window.location.href = "/";
     };
 
