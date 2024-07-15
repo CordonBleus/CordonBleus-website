@@ -64,7 +64,7 @@ function RegisterForm() {
                 updateLastError(reponseData["error"]);
             } else {
                 updateLastError("");
-                navigate("/login");
+                navigate("/");
             }
         } catch (e) {
             console.error(e);
