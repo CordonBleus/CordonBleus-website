@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import Header from "../../components/header/Header.jsx";
 import RoomsPageStyle from "./RoomsPage.module.css";
 import ListOfRoomCards from "../../components/listOfRoomCards/ListOfRoomCards.jsx";
 import Button from "../../components/button/button.jsx";
-import {useNavigate} from "react-router-dom";
 import CreateRoomModal from "../../components/createRoomModal/CreateRoomModal.jsx";
 
 export const RoomsPage = () => {
