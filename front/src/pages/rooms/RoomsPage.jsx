@@ -74,20 +74,6 @@ export const RoomsPage = () => {
     }
   };
 
-  const createRoom2 = async (roomName, roomDescription) => {
-    if (socket.current == null) return;
-    const userUuid = localStorage.getItem("userUuid");
-    joinRoom(
-      socket.current,
-      userUuid,
-      roomName,
-      roomDescription,
-      "1",
-      "https://meet.google.com/new",
-    );
-    location.reload();
-  };
-
   return (
     <section className={RoomsPageStyle.page}>
       <Header/>
@@ -97,15 +83,12 @@ export const RoomsPage = () => {
         onClick={async () => {
           await handleClick();
         }}/>
-      <Button
-        text={"Create Room 2"}
-        onClick={async () => {
-          await createRoom2("La room du super tajin trop stylé", "roomDescription");
-        }}/>
       <ListOfRoomCards rooms={rooms}/>
       {showModal && <CreateRoomModal
+        socket={socket}
         onClose={async () => {
           setShowModal(false);
+          await fetchRooms();
         }}/>}
     </section>
   );

@@ -2,8 +2,9 @@ import Button from "../button/button.jsx";
 import * as PropTypes from "prop-types";
 import CreateRoomModalStyle from "./CreateRoomModal.module.css";
 import {useEffect, useState} from "react";
+import {joinRoom} from "../../services/socketio/index.js";
 
-function CreateRoomModal({onClose}) {
+function CreateRoomModal({socket, onClose}) {
   const [recipes, setRecipes] = useState([])
   const [selectedRecipe, setSelectedRecipe] = useState(null)
 
@@ -24,6 +25,7 @@ function CreateRoomModal({onClose}) {
   }
 
   const createRoom = async () => {
+    if (socket.current == null) return;
     const response = await fetch(import.meta.env.VITE_API_URI + '/api/meet', {
       method: 'POST',
       headers: {
@@ -40,16 +42,15 @@ function CreateRoomModal({onClose}) {
     console.log(result)
     console.log(selectedRecipe)
 
-    /*io.emit('create-room', {
-      recipeId: selectedRecipe.id,
-      name: selectedRecipe.name,
-      imageUrl: selectedRecipe.imageUrl,
-      cookingTime: selectedRecipe.cookingTime,
-      prepTime: selectedRecipe.prepTime,
-      steps: selectedRecipe.steps,
-      ingredients: selectedRecipe.ingredients,
-      meetingUrl: result.meetingUrl,
-    })*/
+    const userUuid = localStorage.getItem("userUuid");
+    joinRoom(
+      socket.current,
+      userUuid,
+      "roomName",
+      "roomDescription",
+      selectedRecipe.id,
+      result.meetingUri,
+    );
 
     onClose()
   }
@@ -70,6 +71,9 @@ function CreateRoomModal({onClose}) {
   )
 }
 
-CreateRoomModal.propTypes = {onClose: PropTypes.func};
+CreateRoomModal.propTypes = {
+  onClose: PropTypes.func,
+  socket: PropTypes.object
+};
 
 export default CreateRoomModal;
