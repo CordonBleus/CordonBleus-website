@@ -11,7 +11,9 @@
 .container {
     display: flex;
     justify-content: space-between;
+    margin-top: 8px;
 }
+
 .inline1, .inline2 {
     display: inline-block;
     font-size: 100%;
@@ -24,6 +26,12 @@
 .title{
     font-size: 125%;
     font-weight: bold;
+}
+
+.thumbnail{
+    width: 150px;
+    height: auto;
+    border-radius: 10px;
 }
 
 @media screen and (max-width: 500px) {

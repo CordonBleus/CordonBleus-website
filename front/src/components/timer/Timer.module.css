@@ -4,7 +4,8 @@
     gap: 10px;
 }
 .inline1, .inline2 {
-    display: inline-block;
+    display: flex;
+    align-items: center;
     /* Add margins or padding for spacing */
 }
 .joinButoon{

@@ -1,6 +1,5 @@
 import CardRoomStyle from "./CardRoom.module.css"
 import icon from "../../assets/icons/fourchette.svg"
-import pizza from "../../assets/food/pizza.png"
 import Timer from "../timer/Timer.jsx";
 import Button from "../button/button.jsx";
 import {useNavigate} from "react-router-dom";
@@ -17,15 +16,15 @@ function CardRoom({cardRoomInfo}) {
         <article className={CardRoomStyle.card}>
             <img src={icon} alt="icon"/>
             <div>
-                <p className={CardRoomStyle.title}>{cardRoomInfo.recipe.title}</p>
+                <p className={CardRoomStyle.title}>{cardRoomInfo.recipe.name}</p>
             </div>
             <div className={CardRoomStyle.container}>
-                <p className={CardRoomStyle.inline1}>{cardRoomInfo.recipe.description}</p>
-                <img className={CardRoomStyle.inline2} src={pizza} alt="pizza"/>
+                <p className={CardRoomStyle.inline1}>{"Lorem Ipsum Dolor Sit amet"}</p>
+                <img className={CardRoomStyle.thumbnail} src={cardRoomInfo.recipe.imageUrl} alt="pizza"/>
             </div>
             <div className={CardRoomStyle.container}>
                 <div className={CardRoomStyle.inline1}>
-                    <Timer time={cardRoomInfo.recipe.prepTime + cardRoomInfo.recipe.cookingTime}/>
+                    <Timer time={cardRoomInfo.recipe.prepTime + cardRoomInfo.recipe.cookingTime + " mins"}/>
                 </div>
                 <Button className={CardRoomStyle.joinButoon} onClick={handleClick}  text={"Join"} />
             </div>

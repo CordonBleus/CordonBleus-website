@@ -1,4 +1,4 @@
-import { roomLeft, roomJoined, raiseError } from "./socket-emit.js";
+import {roomLeft, roomJoined, raiseError, roomList} from "./socket-emit.js";
 import { AppDataSource } from "../../data-source.js";
 import { Recipe } from "../../entity/Recipe.js";
 
@@ -17,6 +17,7 @@ const socketReceive = (io, socket, users, roomExist, getRoomUserList, rooms) => 
         description: roomDescription,
         meetingUrl: meetingLink,
       })
+      roomList(io, rooms)
     }
     users.set(socket.id, user)
     console.log(rooms)

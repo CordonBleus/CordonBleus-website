@@ -3,7 +3,7 @@ import Header from "../../components/header/Header.jsx";
 import RoomsPageStyle from "./RoomsPage.module.css";
 import ListOfRoomCards from "../../components/listOfRoomCards/ListOfRoomCards.jsx";
 import Button from "../../components/button/button.jsx";
-import {connectWS, disconnectWS, joinRoom} from "../../services/socketio/index.js";
+import {connectWS, disconnectWS, onSetRooms} from "../../services/socketio/index.js";
 import CreateRoomModal from "../../components/createRoomModal/CreateRoomModal.jsx";
 
 export const RoomsPage = () => {
@@ -22,6 +22,10 @@ export const RoomsPage = () => {
     //   setRooms(args.rooms)
     // })
 
+    const onSetRoomsCleanUp = onSetRooms(socket.current, (args) => {
+      setRooms(args.rooms)
+    })
+
     const url = new URL(window.location.href);
     const token = url.searchParams.get("token");
     if (token) {
@@ -31,7 +35,7 @@ export const RoomsPage = () => {
 
     return () => {
       // onroomJOINcleanup()
-      // onSetRoomsCleanUp()
+      onSetRoomsCleanUp()
       disconnectWS(socket.current);
       socket.current = null;
     };
@@ -74,20 +78,6 @@ export const RoomsPage = () => {
     }
   };
 
-  const createRoom2 = async (roomName, roomDescription) => {
-    if (socket.current == null) return;
-    const userUuid = localStorage.getItem("userUuid");
-    joinRoom(
-      socket.current,
-      userUuid,
-      roomName,
-      roomDescription,
-      "1",
-      "https://meet.google.com/new",
-    );
-    location.reload();
-  };
-
   return (
     <section className={RoomsPageStyle.page}>
       <Header/>
@@ -97,13 +87,9 @@ export const RoomsPage = () => {
         onClick={async () => {
           await handleClick();
         }}/>
-      <Button
-        text={"Create Room 2"}
-        onClick={async () => {
-          await createRoom2("La room du super tajin trop stylé", "roomDescription");
-        }}/>
       <ListOfRoomCards rooms={rooms}/>
       {showModal && <CreateRoomModal
+        socket={socket}
         onClose={async () => {
           setShowModal(false);
         }}/>}
