@@ -8,9 +8,8 @@ function CreateRoomModal({onClose}) {
   const [selectedRecipe, setSelectedRecipe] = useState(null)
 
   useEffect( () => {
-    getRecipes().then((recipes) => setRecipes(recipes))
-    setSelectedRecipe(recipes[0] || {})
-  }, [recipes]);
+    getRecipes()
+  }, []);
 
   const getRecipes = async () => {
     const response = await fetch(import.meta.env.VITE_API_URI + '/api/recipes', {
@@ -19,7 +18,9 @@ function CreateRoomModal({onClose}) {
         'Content-Type': 'application/json'
       },
     })
-    return await response.json()
+    const result = await response.json()
+    setRecipes(result)
+    setSelectedRecipe(result[0])
   }
 
   const createRoom = async () => {
