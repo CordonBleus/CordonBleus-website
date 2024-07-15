@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import React from "react";
 import CardRoomStyle from "./CardRoom.module.css"
 import icon from "../../assets/icons/fourchette.svg"
 import pizza from "../../assets/food/pizza.png"
@@ -19,10 +17,10 @@ function CardRoom({cardRoomInfo}) {
         <article className={CardRoomStyle.card}>
             <img src={icon} alt="icon"/>
             <div>
-                <p className={CardRoomStyle.title}>{cardRoomInfo.title}</p>
+                <p className={CardRoomStyle.title}>{cardRoomInfo.recipe.title}</p>
             </div>
             <div className={CardRoomStyle.container}>
-                <p className={CardRoomStyle.inline1}>{cardRoomInfo.description}</p>
+                <p className={CardRoomStyle.inline1}>{cardRoomInfo.recipe.description}</p>
                 <img className={CardRoomStyle.inline2} src={pizza} alt="pizza"/>
             </div>
             <div className={CardRoomStyle.container}>

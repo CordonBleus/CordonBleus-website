@@ -1,24 +1,24 @@
 import Header from "../../components/header/Header.jsx";
 import RoomPageStyle from "./RoomPage.module.css";
 import RoomComponent from "../../components/room/RoomComponent.jsx";
-import {useLocation} from "react-router-dom";
-import PropTypes from "prop-types";
+import {useLocation, useNavigate} from "react-router-dom";
+import Button from "../../components/button/button.jsx";
 
-function Room({ roomName }) {
+function Room() {
+
     const location = useLocation()
     const meetingUrl = location.state.roomInfo.meetingUrl
+    const recipe = location.state.roomInfo.recipe
+    const navigate = useNavigate()
 
     return (
         <section className={RoomPageStyle.page}>
             <Header />
-            <h1 className={RoomPageStyle.title}>Room: {roomName}</h1>
-            <RoomComponent meetingUrl={meetingUrl}/>
+            <h1 className={RoomPageStyle.title}>{recipe.name}</h1>
+            <RoomComponent meetingUrl={meetingUrl} recipe={recipe}/>
+            <Button text={"Back"} onClick={() => navigate('/room-list')}/>
         </section>
     );
 }
-
-Room.propTypes = {
-    roomName: PropTypes.string.isRequired
-};
 
 export default Room;

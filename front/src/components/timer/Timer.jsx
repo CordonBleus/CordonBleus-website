@@ -1,6 +1,6 @@
-import React from "react";
 import timer from "../../assets/icons/timer.svg";
 import TimerStyle from "./Timer.module.css";
+import * as PropTypes from "prop-types";
 
 function Timer({time}) {
     return (
@@ -12,5 +12,10 @@ function Timer({time}) {
         </div>
     );
 }
+
+Timer.propTypes = {
+    time: PropTypes.string.isRequired
+}
+
 
 export default Timer;
