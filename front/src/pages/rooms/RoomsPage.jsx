@@ -90,38 +90,12 @@ export const RoomsPage = () => {
     // navigate(`/room/${roomName}`)
   };
 
-  // const createRoom = async () => {
-  //   const response = await fetch(import.meta.env.VITE_API_URI + '/api/meet', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       type: 'authorized_user',
-  //       refresh_token: localStorage.getItem('googleToken'),
-  //       client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
-  //       client_secret: import.meta.env.VITE_GOOGLE_CLIENT_SECRET
-  //     })
-  //   })
-  //   const result = await response.json()
-  //   console.log(result)
-  //
-  //   rooms.push({
-  //     id: result.roomName.substring(result.roomName.indexOf('/') + 1, result.roomName.length),
-  //     meetingUrl: result.meetingUri,
-  //     title: "Lorem Ipsum Title",
-  //     description: "Lorem Ipsum Dolor Sit Amet Description",
-  //     time: "60 min"
-  //   })
-  //   setRooms([...rooms])
-  // }
-
   return (
     <section className={RoomsPageStyle.page}>
       <Header />
       <h1 className={RoomsPageStyle.title}>Rooms</h1>
       <Button text={"Create Room"} onClick={async () => {await handleClick()}}/>
-      <Button text={"Create Room 2"} onClick={async () => {await createRoom2("La room remplis de CACA", "roomDescription")}}/>
+      <Button text={"Create Room 2"} onClick={async () => {await createRoom2("La room du super tajin trop stylé", "roomDescription")}}/>
       <ListOfRoomCards rooms={rooms} />
       {showModal && <CreateRoomModal onClose={async () => {
         setShowModal(false)
