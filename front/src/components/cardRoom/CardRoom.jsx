@@ -17,15 +17,15 @@ function CardRoom({cardRoomInfo}) {
         <article className={CardRoomStyle.card}>
             <img src={icon} alt="icon"/>
             <div>
-                <p className={CardRoomStyle.title}>{cardRoomInfo.title}</p>
+                <p className={CardRoomStyle.title}>{cardRoomInfo.recipe.title}</p>
             </div>
             <div className={CardRoomStyle.container}>
-                <p className={CardRoomStyle.inline1}>{cardRoomInfo.description}</p>
+                <p className={CardRoomStyle.inline1}>{cardRoomInfo.recipe.description}</p>
                 <img className={CardRoomStyle.inline2} src={pizza} alt="pizza"/>
             </div>
             <div className={CardRoomStyle.container}>
                 <div className={CardRoomStyle.inline1}>
-                    <Timer time={cardRoomInfo.time}/>
+                    <Timer time={cardRoomInfo.recipe.time}/>
                 </div>
                 <Button className={CardRoomStyle.joinButoon} onClick={handleClick}  text={"Join"} />
             </div>
@@ -36,9 +36,8 @@ function CardRoom({cardRoomInfo}) {
 CardRoom.propTypes = {
     cardRoomInfo: PropTypes.shape({
         id: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        time: PropTypes.string.isRequired
+        recipe: PropTypes.object.isRequired,
+        meetingUrl: PropTypes.string.isRequired
     })
 };
 
