@@ -10,6 +10,12 @@
     padding: 32px;
 }
 
+.linkContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
 .info{
     display: flex;
     gap: 32px;
