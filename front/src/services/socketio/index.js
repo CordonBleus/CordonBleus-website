@@ -10,7 +10,7 @@ import { io } from "socket.io-client";
 // }
 
 export const connectWS = () => {
-  return io.connect('http://127.0.0.1:3000/');
+  return io.connect(import.meta.env.VITE_WEB_SOCKET_API_URI);
 }
 
 export const disconnectWS = (socket) => {
