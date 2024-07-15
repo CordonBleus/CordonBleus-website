@@ -42,7 +42,7 @@ export const RoomsPage = () => {
   }, []);
 
   const fakeLogin = async () => {
-    const response = await fetch(import.meta.env.VITE_API_URI + "/user", {
+    const response = await fetch("/api/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,7 +59,7 @@ export const RoomsPage = () => {
   };
 
   const fetchRooms = async () => {
-    const response = await fetch(import.meta.env.VITE_API_URI + "/rooms", {
+    const response = await fetch("/api/rooms", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export const RoomsPage = () => {
   const handleClick = async () => {
     const googleToken = localStorage.getItem("googleToken");
     if (!googleToken) {
-      location = import.meta.env.VITE_API_URI + "/api/google/login";
+      location = "/api/google/login";
     } else {
       setShowModal(true);
     }

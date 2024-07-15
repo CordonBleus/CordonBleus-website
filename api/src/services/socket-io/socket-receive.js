@@ -39,6 +39,7 @@ const socketReceive = (io, socket, users, roomExist, getRoomUserList, rooms) => 
   }
 
   socket.on("room:join", async ({userUuid, roomName, roomDescription, recipeId, meetingLink, host}) => {
+    if (!users.has(userUuid)) return;
     const user = users.get(userUuid)
     const roomUserList = getRoomUserList(roomName)
     const recipeRepo = AppDataSource.getRepository(Recipe);
@@ -51,6 +52,7 @@ const socketReceive = (io, socket, users, roomExist, getRoomUserList, rooms) => 
   });
 
   socket.on("room:leave", ({userUuid, roomName}) => {
+    if (!users.has(userUuid)) return;
     const user = users.get(userUuid)
     const roomUserList = getRoomUserList(roomName)
     leaveRoom(user)

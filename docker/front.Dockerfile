@@ -4,8 +4,11 @@ RUN apk update
 RUN apk add nodejs yarn
 
 WORKDIR /app
-COPY . .
+COPY package.json .
+COPY yarn.lock .
 
 RUN yarn install
+
+COPY . .
 
 CMD [ "yarn", "dev" ]
