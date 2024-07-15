@@ -1,5 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import React from "react";
 import CardRoomStyle from "./CardRoom.module.css"
 import icon from "../../assets/icons/fourchette.svg"
 import pizza from "../../assets/food/pizza.png"
