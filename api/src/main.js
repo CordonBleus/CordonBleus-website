@@ -10,10 +10,8 @@ import gLoginRouter from "./routes/google-login.js"
 import { seedIfNeeded } from "./seed/index.js"
 import {getAllRecipes } from "./routes/recipes/all.js";
 import {loginUser} from "./routes/login.js";
-import {registerUser} from "./routes/register.js";
-import { createServer } from "http";
-import { Server } from "socket.io";
 import socketReceiveHandler from "./services/socket-io/socket-receive.js"
+import {registerUser} from "./routes/register.js";
 
 if (!AppDataSource.isInitialized) {
   await AppDataSource.initialize();
